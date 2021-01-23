@@ -1,2 +1,3 @@
 # Minesweeper-ranking
-Ranking for my minesweeper android app
+Backend for my android Minesweeper app.  
+Deployed on Heroku.
