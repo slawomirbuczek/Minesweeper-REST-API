@@ -17,7 +17,7 @@ public class RegistrationRequest {
     private String username;
 
     @NotBlank(message = "Password is mandatory")
-    @Size(min = 4, max = 15, message = "min - 30, max - 40")
+    @Size(min = 4, max = 15, message = "min - 4, max - 15")
     private String password;
 
 }

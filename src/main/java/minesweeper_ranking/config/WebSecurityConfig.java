@@ -13,8 +13,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import static minesweeper_ranking.authentication.SecurityConstants.LOGIN_URL;
-import static minesweeper_ranking.authentication.SecurityConstants.REGISTRATION_URL;
+import static minesweeper_ranking.authentication.SecurityConstants.LOGIN_ENDPOINT;
+import static minesweeper_ranking.authentication.SecurityConstants.REGISTRATION_ENDPOINT;
 
 
 @EnableWebSecurity
@@ -40,9 +40,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/webjars/**").permitAll()
                 .antMatchers("/swagger-resources/**").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
-                .antMatchers(HttpMethod.POST, REGISTRATION_URL).permitAll()
-                .antMatchers(HttpMethod.POST, LOGIN_URL).permitAll()
-                .antMatchers(HttpMethod.GET, "/api/players/**").permitAll()
+                .antMatchers(HttpMethod.POST, REGISTRATION_ENDPOINT).permitAll()
+                .antMatchers(HttpMethod.POST, LOGIN_ENDPOINT).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

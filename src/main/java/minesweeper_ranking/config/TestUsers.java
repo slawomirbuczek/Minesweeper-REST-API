@@ -19,16 +19,6 @@ public class TestUsers {
 
     @PostConstruct
     private void addTestPlayers() {
-        Player jonSnow = new Player();
-        jonSnow.setUsername("Jon");
-        jonSnow.setPassword(passwordEncoder.encode("Snow"));
-        playerRepository.save(jonSnow);
-
-        Player littleFinger = new Player();
-        littleFinger.setUsername("Little");
-        littleFinger.setPassword(passwordEncoder.encode("Finger"));
-        playerRepository.save(littleFinger);
-
         Player string = new Player();
         string.setUsername("string");
         string.setPassword(passwordEncoder.encode("string"));

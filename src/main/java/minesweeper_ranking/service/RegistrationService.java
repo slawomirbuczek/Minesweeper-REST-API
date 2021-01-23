@@ -1,13 +1,11 @@
 package minesweeper_ranking.service;
 
-import minesweeper_ranking.model.entity.Player;
 import minesweeper_ranking.model.RegistrationRequest;
 import minesweeper_ranking.model.ResponseMessage;
+import minesweeper_ranking.model.entity.Player;
 import minesweeper_ranking.repository.PlayerRepository;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class RegistrationService {
@@ -21,23 +19,19 @@ public class RegistrationService {
     }
 
     public ResponseMessage addPlayer(RegistrationRequest registrationRequest) {
-        ifUsernameAlreadyExist(registrationRequest.getUsername());
+        String username = registrationRequest.getUsername();
+        String password = registrationRequest.getPassword();
+
+        if (playerRepository.existsByUsername(username)) {
+            return new ResponseMessage("Player with username " + username + " already exists");
+        }
 
         Player player = new Player();
-        player.setUsername(registrationRequest.getUsername());
-        player.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
+        player.setUsername(username);
+        player.setPassword(passwordEncoder.encode(password));
         playerRepository.save(player);
 
-        return new ResponseMessage("Registered successfully!");
-    }
-
-    public void ifUsernameAlreadyExist(String username) {
-        if (playerRepository.existsByUsername(username)) {
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST,
-                    "Player with username " + username + " already exists."
-            );
-        }
+        return new ResponseMessage("Registered successfully");
     }
 
 }

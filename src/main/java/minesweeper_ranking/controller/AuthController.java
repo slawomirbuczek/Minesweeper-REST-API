@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-import static minesweeper_ranking.authentication.SecurityConstants.LOGIN_URL;
-import static minesweeper_ranking.authentication.SecurityConstants.REGISTRATION_URL;
+import static minesweeper_ranking.authentication.SecurityConstants.LOGIN_ENDPOINT;
+import static minesweeper_ranking.authentication.SecurityConstants.REGISTRATION_ENDPOINT;
 
 @RestController
 public class AuthController {
@@ -22,19 +22,13 @@ public class AuthController {
         this.registrationService = registrationService;
     }
 
-    @PostMapping(LOGIN_URL)
+    @PostMapping(LOGIN_ENDPOINT)
     public void login(@RequestBody LoginRequest loginRequest) {
 
     }
 
-    @PostMapping(REGISTRATION_URL)
+    @PostMapping(REGISTRATION_ENDPOINT)
     public ResponseEntity<ResponseMessage> register(@Valid @RequestBody RegistrationRequest registrationRequest) {
         return ResponseEntity.ok(registrationService.addPlayer(registrationRequest));
-    }
-
-    @GetMapping("api/players/{username}")
-    public ResponseEntity<ResponseMessage> usernameAlreadyExist(@PathVariable(name = "username") String username) {
-        registrationService.ifUsernameAlreadyExist(username);
-        return ResponseEntity.ok(new ResponseMessage("Username available."));
     }
 }
