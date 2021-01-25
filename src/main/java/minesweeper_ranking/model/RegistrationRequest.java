@@ -12,12 +12,12 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class RegistrationRequest {
 
-    @NotBlank(message = "Name is mandatory")
-    @Size(min = 4, max = 15, message = "min - 4, max - 15")
+    @NotBlank(message = "Username is mandatory")
+    @Size(min = 4, max = 15, message = "Username must be at least 4 characters long")
     private String username;
 
     @NotBlank(message = "Password is mandatory")
-    @Size(min = 4, max = 15, message = "min - 4, max - 15")
+    @Size(min = 4, max = 30, message = "Password must be at least 4 characters long")
     private String password;
 
 }

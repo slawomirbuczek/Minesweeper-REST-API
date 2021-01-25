@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
-import static minesweeper_ranking.authentication.SecurityConstants.*;
+import static minesweeper_ranking.authentication.ApiProperties.*;
 
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {

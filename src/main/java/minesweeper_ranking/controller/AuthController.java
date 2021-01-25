@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-import static minesweeper_ranking.authentication.SecurityConstants.LOGIN_ENDPOINT;
-import static minesweeper_ranking.authentication.SecurityConstants.REGISTRATION_ENDPOINT;
+import static minesweeper_ranking.authentication.ApiProperties.LOGIN_ENDPOINT;
+import static minesweeper_ranking.authentication.ApiProperties.REGISTRATION_ENDPOINT;
 
 @RestController
 public class AuthController {

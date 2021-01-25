@@ -13,8 +13,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import static minesweeper_ranking.authentication.SecurityConstants.LOGIN_ENDPOINT;
-import static minesweeper_ranking.authentication.SecurityConstants.REGISTRATION_ENDPOINT;
+import static minesweeper_ranking.authentication.ApiProperties.LOGIN_ENDPOINT;
+import static minesweeper_ranking.authentication.ApiProperties.REGISTRATION_ENDPOINT;
 
 
 @EnableWebSecurity

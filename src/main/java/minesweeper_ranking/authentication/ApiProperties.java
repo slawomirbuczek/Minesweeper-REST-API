@@ -1,6 +1,6 @@
 package minesweeper_ranking.authentication;
 
-public class SecurityConstants {
+public class ApiProperties {
 
     public static final String SECRET = "SECRET_KEY";
     public static final long EXPIRATION_TIME = 900_000; // 15 mins

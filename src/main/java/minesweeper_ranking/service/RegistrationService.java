@@ -1,5 +1,6 @@
 package minesweeper_ranking.service;
 
+import minesweeper_ranking.exceptions.UserAlreadyExistsException;
 import minesweeper_ranking.model.RegistrationRequest;
 import minesweeper_ranking.model.ResponseMessage;
 import minesweeper_ranking.model.entity.Player;
@@ -23,7 +24,7 @@ public class RegistrationService {
         String password = registrationRequest.getPassword();
 
         if (playerRepository.existsByUsername(username)) {
-            return new ResponseMessage("Player with username " + username + " already exists");
+            throw new UserAlreadyExistsException(username);
         }
 
         Player player = new Player();
