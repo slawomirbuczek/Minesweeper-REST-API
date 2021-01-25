@@ -26,8 +26,10 @@ public class RankingController {
         return rankingService.getRanking(level);
     }
 
-    @PostMapping
-    public ResponseEntity<ResponseMessage> addRecord(@Valid @RequestBody Record record) {
-        return ResponseEntity.ok(rankingService.addRecord(record));
+    @PostMapping("/{level}")
+    public ResponseEntity<ResponseMessage> addRecord(
+            @Valid @RequestBody Record record,
+            @PathVariable(name = "level") Level level) {
+        return ResponseEntity.ok(rankingService.addRecord(record, level));
     }
 }

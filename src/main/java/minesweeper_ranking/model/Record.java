@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 
 @Data
@@ -13,10 +13,7 @@ import java.time.LocalDateTime;
 public class Record {
 
     @NotNull
-    private Level level;
-
-    @NotNull
-    private LocalDateTime date;
+    private Date date;
 
     @Min(0)
     private float time;

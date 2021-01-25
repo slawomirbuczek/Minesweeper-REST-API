@@ -1,7 +1,7 @@
 package minesweeper_ranking.model.entity;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.UUID;
 
 
@@ -16,7 +16,7 @@ public class LevelEasy extends RankingLevel{
     }
 
     @Override
-    public LocalDateTime getDate() {
+    public Date getDate() {
         return super.getDate();
     }
 

@@ -1,8 +1,10 @@
 package minesweeper_ranking.model.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.UUID;
 
 @NoArgsConstructor
@@ -12,7 +14,7 @@ public class RankingLevel {
 
     protected UUID id;
 
-    protected LocalDateTime date;
+    protected Date date;
 
     protected float time;
 

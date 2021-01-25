@@ -49,21 +49,9 @@ public class RankingService {
         return ranking;
     }
 
-    private List<RankingDTO> mapToRankingDTO(List<? extends RankingLevel> ranking) {
-        List<RankingDTO> rankingDTO = new ArrayList<>();
-        ranking.forEach(
-                rankingLevel -> {
-                    RankingDTO rank = new RankingDTO();
-                    rank.setDate(rankingLevel.getDate());
-                    rank.setTime(rankingLevel.getTime());
-                    rank.setUsername(rankingLevel.getPlayer().getUsername());
-                    rankingDTO.add(rank);
-                }
-        );
-        return rankingDTO;
-    }
 
-    public ResponseMessage addRecord(Record record) {
+
+    public ResponseMessage addRecord(Record record, Level level) {
 
         RankingLevel rankingLevel = new RankingLevel();
         rankingLevel.setDate(record.getDate());
@@ -72,7 +60,7 @@ public class RankingService {
 
         ModelMapper modelMapper = new ModelMapper();
 
-        switch (record.getLevel()) {
+        switch (level) {
             case EASY:
                 levelEasyRepository.save(modelMapper.map(rankingLevel, LevelEasy.class));
                 break;
@@ -87,9 +75,22 @@ public class RankingService {
         return new ResponseMessage("Record added!");
     }
 
-
     private Player getCurrentPlayer() {
         return (Player) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
+
+    private List<RankingDTO> mapToRankingDTO(List<? extends RankingLevel> ranking) {
+        List<RankingDTO> rankingDTO = new ArrayList<>();
+        ranking.forEach(
+                rankingLevel -> {
+                    RankingDTO rank = new RankingDTO();
+                    rank.setDate(rankingLevel.getDate());
+                    rank.setTime(rankingLevel.getTime());
+                    rank.setUsername(rankingLevel.getPlayer().getUsername());
+                    rankingDTO.add(rank);
+                }
+        );
+        return rankingDTO;
     }
 
 }
