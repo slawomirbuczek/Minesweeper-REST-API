@@ -6,6 +6,7 @@ import java.util.UUID;
 
 
 @Entity
+@Table(name = "LEVEL_EASY", schema = "public")
 public class LevelEasy extends RankingLevel{
 
     @Id
@@ -25,11 +26,9 @@ public class LevelEasy extends RankingLevel{
         return super.getTime();
     }
 
-    @ManyToOne
-    @JoinColumn(name = "player_id")
     @Override
-    public Player getPlayer() {
-        return super.getPlayer();
+    public String getUsername() {
+        return super.getUsername();
     }
 
 }

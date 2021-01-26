@@ -1,11 +1,11 @@
 package minesweeper_ranking.model.entity;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
 @Entity
+@Table(name = "LEVEL_HARD", schema = "public")
 public class LevelHard extends RankingLevel {
 
     @Id
@@ -25,10 +25,8 @@ public class LevelHard extends RankingLevel {
         return super.getTime();
     }
 
-    @ManyToOne
-    @JoinColumn(name = "player_id")
     @Override
-    public Player getPlayer() {
-        return super.getPlayer();
+    public String getUsername() {
+        return super.getUsername();
     }
 }

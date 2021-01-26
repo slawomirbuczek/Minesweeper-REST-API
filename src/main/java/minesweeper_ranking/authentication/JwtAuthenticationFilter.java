@@ -3,7 +3,7 @@ package minesweeper_ranking.authentication;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import minesweeper_ranking.model.LoginRequest;
+import minesweeper_ranking.model.LoginCredentials;
 import minesweeper_ranking.model.entity.Player;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -34,8 +34,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) throws AuthenticationException {
         try {
-            LoginRequest creds = new ObjectMapper()
-                    .readValue(req.getInputStream(), LoginRequest.class);
+            LoginCredentials creds = new ObjectMapper()
+                    .readValue(req.getInputStream(), LoginCredentials.class);
 
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(

@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.UUID;
@@ -21,6 +22,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Data
 @Entity
+@Table(name = "PLAYER", schema = "public")
 public class Player implements UserDetails {
 
     @Id
@@ -29,7 +31,6 @@ public class Player implements UserDetails {
             name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
-
     private UUID id;
 
     private String username;

@@ -1,7 +1,7 @@
 package minesweeper_ranking.service;
 
 import minesweeper_ranking.exceptions.UserAlreadyExistsException;
-import minesweeper_ranking.model.RegistrationRequest;
+import minesweeper_ranking.model.LoginCredentials;
 import minesweeper_ranking.model.ResponseMessage;
 import minesweeper_ranking.model.entity.Player;
 import minesweeper_ranking.repository.PlayerRepository;
@@ -19,9 +19,9 @@ public class RegistrationService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public ResponseMessage addPlayer(RegistrationRequest registrationRequest) {
-        String username = registrationRequest.getUsername();
-        String password = registrationRequest.getPassword();
+    public ResponseMessage addPlayer(LoginCredentials loginCredentials) {
+        String username = loginCredentials.getUsername();
+        String password = loginCredentials.getPassword();
 
         if (playerRepository.existsByUsername(username)) {
             throw new UserAlreadyExistsException(username);

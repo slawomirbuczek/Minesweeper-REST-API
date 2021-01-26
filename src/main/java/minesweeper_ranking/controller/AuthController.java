@@ -1,8 +1,7 @@
 package minesweeper_ranking.controller;
 
 
-import minesweeper_ranking.model.LoginRequest;
-import minesweeper_ranking.model.RegistrationRequest;
+import minesweeper_ranking.model.LoginCredentials;
 import minesweeper_ranking.model.ResponseMessage;
 import minesweeper_ranking.service.RegistrationService;
 import org.springframework.http.ResponseEntity;
@@ -23,12 +22,12 @@ public class AuthController {
     }
 
     @PostMapping(LOGIN_ENDPOINT)
-    public void login(@RequestBody LoginRequest loginRequest) {
+    public void login(@RequestBody LoginCredentials loginCredentials) {
 
     }
 
     @PostMapping(REGISTRATION_ENDPOINT)
-    public ResponseEntity<ResponseMessage> register(@Valid @RequestBody RegistrationRequest registrationRequest) {
-        return ResponseEntity.ok(registrationService.addPlayer(registrationRequest));
+    public ResponseEntity<ResponseMessage> register(@Valid @RequestBody LoginCredentials loginCredentials) {
+        return ResponseEntity.ok(registrationService.addPlayer(loginCredentials));
     }
 }

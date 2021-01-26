@@ -8,4 +8,5 @@ import java.util.UUID;
 
 @Repository
 public interface LevelMediumRepository extends JpaRepository<LevelMedium, UUID> {
+
 }

@@ -1,7 +1,6 @@
 package minesweeper_ranking.controller;
 
 import minesweeper_ranking.model.Level;
-import minesweeper_ranking.model.RankingDTO;
 import minesweeper_ranking.model.Record;
 import minesweeper_ranking.model.ResponseMessage;
 import minesweeper_ranking.service.RankingService;
@@ -22,7 +21,7 @@ public class RankingController {
     }
 
     @GetMapping("/{level}")
-    public List<RankingDTO> getRecords(@PathVariable(name = "level") Level level) {
+    public List<Record> getRecords(@PathVariable(name = "level") Level level) {
         return rankingService.getRanking(level);
     }
 

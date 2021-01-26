@@ -18,6 +18,6 @@ public class RankingLevel {
 
     protected float time;
 
-    protected Player player;
+    protected String username;
 
 }
