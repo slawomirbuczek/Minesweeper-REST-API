@@ -2,6 +2,7 @@ package minesweeper_ranking.authentication;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,16 +16,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static minesweeper_ranking.authentication.ApiProperties.*;
-
 
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
     private final UserDetailsService userDetailsService;
+    private final String header_name;
+    private final String token_prefix;
+    private final String secret;
 
-    public JwtAuthorizationFilter(AuthenticationManager authManager, UserDetailsService userDetailsService) {
+    public JwtAuthorizationFilter(
+            AuthenticationManager authManager,
+            UserDetailsService userDetailsService,
+            String header_name,
+            String token_prefix,
+            String secret) {
         super(authManager);
         this.userDetailsService = userDetailsService;
+        this.header_name = header_name;
+        this.token_prefix = token_prefix;
+        this.secret = secret;
     }
 
     @Override
@@ -32,9 +42,9 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
                                     HttpServletResponse res,
                                     FilterChain chain) throws IOException, ServletException {
 
-        String header = req.getHeader(HEADER_STRING);
+        String header = req.getHeader(header_name);
 
-        if (header == null || !header.startsWith(TOKEN_PREFIX)) {
+        if (header == null || !header.startsWith(token_prefix)) {
             chain.doFilter(req, res);
             return;
         }
@@ -46,12 +56,12 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     }
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
-        String token = request.getHeader(HEADER_STRING);
+        String token = request.getHeader(header_name);
 
         if (token != null) {
-            String username = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
+            String username = JWT.require(Algorithm.HMAC512(secret.getBytes()))
                     .build()
-                    .verify(token.replace(TOKEN_PREFIX, ""))
+                    .verify(token.replace(token_prefix, ""))
                     .getSubject();
 
             if (username != null) {

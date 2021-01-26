@@ -23,6 +23,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         Optional<Player> optionalPlayer = playerRepository.findPlayerByUsername(username);
 
-        return optionalPlayer.orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return optionalPlayer.orElseThrow(() -> new UsernameNotFoundException(username));
     }
 }

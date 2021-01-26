@@ -32,4 +32,5 @@ public class GlobalExceptionHandler {
     public ResponseMessage handleUserAlreadyExistsException(UserAlreadyExistsException ex) {
         return new ResponseMessage(ex.getMessage());
     }
+
 }
