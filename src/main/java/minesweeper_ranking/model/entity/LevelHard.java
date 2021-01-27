@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Entity
-@Table(name = "LEVEL_HARD", schema = "public")
+@Table(name = "level_hard", schema = "public")
 public class LevelHard extends RankingLevel {
 
     @Id

@@ -22,7 +22,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "PLAYER", schema = "public")
+@Table(name = "player", schema = "public")
 public class Player implements UserDetails {
 
     @Id

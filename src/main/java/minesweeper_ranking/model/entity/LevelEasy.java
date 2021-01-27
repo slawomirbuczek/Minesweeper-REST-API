@@ -9,7 +9,7 @@ import java.util.UUID;
 
 
 @Entity
-@Table(name = "LEVEL_EASY", schema = "public")
+@Table(name = "level_easy", schema = "public")
 public class LevelEasy extends RankingLevel{
 
     @Id
