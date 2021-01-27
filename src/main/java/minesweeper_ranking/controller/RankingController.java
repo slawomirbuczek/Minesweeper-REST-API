@@ -1,5 +1,6 @@
 package minesweeper_ranking.controller;
 
+import lombok.RequiredArgsConstructor;
 import minesweeper_ranking.model.Level;
 import minesweeper_ranking.model.Record;
 import minesweeper_ranking.model.ResponseMessage;
@@ -10,15 +11,12 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/ranking/")
 public class RankingController {
 
     private final RankingService rankingService;
-
-    public RankingController(RankingService rankingService) {
-        this.rankingService = rankingService;
-    }
 
     @GetMapping("/{level}")
     public List<Record> getRecords(@PathVariable(name = "level") Level level) {

@@ -1,6 +1,7 @@
 package minesweeper_ranking.controller;
 
 
+import lombok.RequiredArgsConstructor;
 import minesweeper_ranking.model.LoginCredentials;
 import minesweeper_ranking.model.ResponseMessage;
 import minesweeper_ranking.service.RegistrationService;
@@ -13,15 +14,10 @@ import javax.validation.Valid;
 
 
 @RestController
+@RequiredArgsConstructor
 public class AuthController {
 
     private final RegistrationService registrationService;
-
-
-    public AuthController(
-            RegistrationService registrationService) {
-        this.registrationService = registrationService;
-    }
 
     @PostMapping("/api/login")
     public void login(@RequestBody LoginCredentials loginCredentials) {

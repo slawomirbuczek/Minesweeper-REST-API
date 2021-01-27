@@ -1,5 +1,6 @@
 package minesweeper_ranking.service;
 
+import lombok.RequiredArgsConstructor;
 import minesweeper_ranking.model.Level;
 import minesweeper_ranking.model.Record;
 import minesweeper_ranking.model.ResponseMessage;
@@ -17,18 +18,13 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class RankingService {
 
     private final LevelEasyRepository levelEasyRepository;
     private final LevelMediumRepository levelMediumRepository;
     private final LevelHardRepository levelHardRepository;
-
-    public RankingService(LevelEasyRepository levelEasyRepository, LevelMediumRepository levelMediumRepository, LevelHardRepository levelHardRepository) {
-        this.levelEasyRepository = levelEasyRepository;
-        this.levelMediumRepository = levelMediumRepository;
-        this.levelHardRepository = levelHardRepository;
-    }
 
     public List<Record> getRanking(Level level) {
         Sort sort = Sort.by(Sort.Direction.ASC, "time");

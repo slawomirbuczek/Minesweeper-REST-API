@@ -1,5 +1,6 @@
 package minesweeper_ranking.service;
 
+import lombok.RequiredArgsConstructor;
 import minesweeper_ranking.model.entity.Player;
 import minesweeper_ranking.repository.PlayerRepository;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,14 +10,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final PlayerRepository playerRepository;
-
-    public UserDetailsServiceImpl(PlayerRepository playerRepository) {
-        this.playerRepository = playerRepository;
-    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
