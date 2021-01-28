@@ -1,5 +1,6 @@
 package minesweeper_ranking.controller;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import minesweeper_ranking.model.Level;
 import minesweeper_ranking.model.Record;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @RestController
 @RequestMapping("/api/ranking/")
 public class RankingController {

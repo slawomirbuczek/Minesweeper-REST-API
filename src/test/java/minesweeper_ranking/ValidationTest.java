@@ -18,7 +18,17 @@ class ValidationTest {
     private TestRestTemplate restTemplate;
 
     @Test
-    void validationExceptionWhenUsernameIsTooShort() {
+    void shouldReturnOkWhenCredentialsAreProper() {
+        ResponseEntity<ResponseMessage> response = restTemplate
+                .postForEntity("/api/register", new LoginCredentials("Wwww", "pass"), ResponseMessage.class);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().getMessage()).isEqualTo("Registered successfully");
+    }
+
+    @Test
+    void shouldReturnBadRequestWhenUsernameIsTooShort() {
         ResponseEntity<ResponseMessage> response = restTemplate
                 .postForEntity("/api/register", new LoginCredentials("Abc", "pass"), ResponseMessage.class);
 
@@ -28,7 +38,7 @@ class ValidationTest {
     }
 
     @Test
-    void validationExceptionWhenUsernameIsTooLong() {
+    void shouldReturnBadRequestWhenUsernameIsTooLong() {
         ResponseEntity<ResponseMessage> response = restTemplate
                 .postForEntity("/api/register", new LoginCredentials(generateProperTooLongString(13), "pass"), ResponseMessage.class);
 
@@ -38,7 +48,7 @@ class ValidationTest {
     }
 
     @Test
-    void validationExceptionWhenUsernameContainsNumbers() {
+    void shouldReturnBadRequestWhenUsernameContainsNumbers() {
         ResponseEntity<ResponseMessage> response = restTemplate
                 .postForEntity("/api/register", new LoginCredentials("Aaa1231", "pass"), ResponseMessage.class);
 
@@ -48,7 +58,7 @@ class ValidationTest {
     }
 
     @Test
-    void validationExceptionWhenUsernameStartsWithLowercase() {
+    void shouldReturnBadRequestWhenUsernameStartsWithLowercase() {
         ResponseEntity<ResponseMessage> response = restTemplate
                 .postForEntity("/api/register", new LoginCredentials("aaaa", "pass"), ResponseMessage.class);
 
@@ -58,17 +68,7 @@ class ValidationTest {
     }
 
     @Test
-    void shouldReturnOkWhenCredentialsAreProper() {
-        ResponseEntity<ResponseMessage> response = restTemplate
-                .postForEntity("/api/register", new LoginCredentials("Username", "pass"), ResponseMessage.class);
-
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody()).isNotNull();
-        assertThat(response.getBody().getMessage()).isEqualTo("Registered successfully");
-    }
-
-    @Test
-    void validationExceptionWhenPasswordIsTooShort() {
+    void shouldReturnBadRequestWhenPasswordIsTooShort() {
         ResponseEntity<ResponseMessage> response = restTemplate
                 .postForEntity("/api/register", new LoginCredentials("Username", "pas"), ResponseMessage.class);
 
@@ -78,13 +78,26 @@ class ValidationTest {
     }
 
     @Test
-    void validationExceptionWhenPasswordIsTooLong() {
+    void shouldReturnBadRequestWhenPasswordIsTooLong() {
         ResponseEntity<ResponseMessage> response = restTemplate
-                .postForEntity("/api/register", new LoginCredentials("Username", new String(new char[31])), ResponseMessage.class);
+                .postForEntity("/api/register", new LoginCredentials("Username", generateProperTooLongString(31)), ResponseMessage.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
         assertThat(response.getBody()).isNotNull();
         assertThat(response.getBody().getMessage()).isEqualTo("Password must be between 4 and 30 characters.");
+    }
+
+    @Test
+    void shouldReturnBadRequestWhenUsernameStartsWithLowercaseAndContainsNumbersAndIsTooShortAndPasswordIsTooLong() {
+        ResponseEntity<ResponseMessage> response = restTemplate
+                .postForEntity("/api/register", new LoginCredentials("a12", generateProperTooLongString(31)), ResponseMessage.class);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().getMessage()).contains("Password must be between 4 and 30 characters.");
+        assertThat(response.getBody().getMessage()).contains("Username must start with a capital character.");
+        assertThat(response.getBody().getMessage()).contains("Username must be between 4 and 12 characters.");
+        assertThat(response.getBody().getMessage()).contains("Username can contain only alphabet characters.");
     }
 
     private String generateProperTooLongString(int length) {

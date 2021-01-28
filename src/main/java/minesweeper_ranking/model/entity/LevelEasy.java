@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "level_easy", schema = "public")
-public class LevelEasy extends RankingLevel{
+public class LevelEasy extends RankingLevel {
 
     @Id
     @GeneratedValue(generator = "UUID")

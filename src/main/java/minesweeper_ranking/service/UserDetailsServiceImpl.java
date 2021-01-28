@@ -1,5 +1,6 @@
 package minesweeper_ranking.service;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import minesweeper_ranking.model.entity.Player;
 import minesweeper_ranking.repository.PlayerRepository;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 

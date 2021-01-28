@@ -13,8 +13,8 @@ import javax.validation.constraints.Size;
 public class LoginCredentials {
 
     @Size(min = 4, max = 12, message = "Username must be between 4 and 12 characters.")
-    @Pattern(regexp = "^[A-Z]", message = "Username must start with a capital character.")
-    @Pattern(regexp = "^[a-zA-Z]$", message = "Username can contain only alphabet characters.")
+    @Pattern(regexp = "^[A-Z].*$", message = "Username must start with a capital character.")
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "Username can contain only alphabet characters.")
     private String username;
 
     @Size(min = 4, max = 30, message = "Password must be between 4 and 30 characters.")

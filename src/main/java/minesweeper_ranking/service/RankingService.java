@@ -1,5 +1,6 @@
 package minesweeper_ranking.service;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import minesweeper_ranking.model.Level;
 import minesweeper_ranking.model.Record;
@@ -18,7 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Service
 public class RankingService {
 

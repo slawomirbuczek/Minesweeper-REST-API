@@ -1,6 +1,6 @@
 package minesweeper_ranking.service;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import minesweeper_ranking.exceptions.UserAlreadyExistsException;
 import minesweeper_ranking.model.LoginCredentials;
 import minesweeper_ranking.model.ResponseMessage;
@@ -9,7 +9,7 @@ import minesweeper_ranking.repository.PlayerRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Service
 public class RegistrationService {
 
