@@ -1,27 +1,26 @@
-package minesweeper_ranking.model;
+package minesweeper_ranking.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 import java.util.Date;
 
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Record {
-
-    @NotNull
-    private Date date;
+public class RankingDto {
 
     @Min(0)
     private float time;
 
-    @Null
-    private String username;
+
+    @NotNull
+    private Date date;
 
 }

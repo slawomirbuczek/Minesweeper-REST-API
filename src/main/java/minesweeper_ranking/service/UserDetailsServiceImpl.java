@@ -1,7 +1,6 @@
 package minesweeper_ranking.service;
 
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import minesweeper_ranking.model.entity.Player;
 import minesweeper_ranking.repository.PlayerRepository;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,4 +23,5 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         return optionalPlayer.orElseThrow(() -> new UsernameNotFoundException(username));
     }
+
 }

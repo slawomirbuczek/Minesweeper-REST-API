@@ -21,26 +21,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsServiceImpl userDetailsService;
-    private final String login_endpoint;
-    private final String registration_endpoint;
-    private final String header_name;
-    private final String token_prefix;
     private final String secret;
     private final long expiration_time;
 
     public WebSecurityConfig(
             UserDetailsServiceImpl userDetailsService,
-            @Value("${api.login-endpoint}") String login_endpoint,
-            @Value("${api.registration-endpoint}") String registration_endpoint,
-            @Value("${api.jwt.header-name}") String header_name,
-            @Value("${api.jwt.token-prefix}") String token_prefix,
             @Value("${api.jwt.secret}") String secret,
             @Value("${api.jwt.expiration-time}") long expiration_time) {
         this.userDetailsService = userDetailsService;
-        this.login_endpoint = login_endpoint;
-        this.registration_endpoint = registration_endpoint;
-        this.header_name = header_name;
-        this.token_prefix = token_prefix;
         this.secret = secret;
         this.expiration_time = expiration_time;
     }
@@ -52,21 +40,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable()
+        http.cors().and().csrf().disable();
+
+        http
                 .authorizeRequests()
                 .antMatchers("/swagger-ui.html").permitAll()
                 .antMatchers("/v2/api-docs").permitAll()
                 .antMatchers("/webjars/**").permitAll()
                 .antMatchers("/swagger-resources/**").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
-                .antMatchers(HttpMethod.POST, registration_endpoint).permitAll()
-                .antMatchers(HttpMethod.POST, login_endpoint).permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .addFilter(new JwtAuthenticationFilter(authenticationManager(), login_endpoint, secret, expiration_time, token_prefix))
-                .addFilter(new JwtAuthorizationFilter(authenticationManager(), userDetailsService, header_name, token_prefix, secret))
+                .antMatchers(HttpMethod.POST, "/api/register").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/login").permitAll()
+                .anyRequest().authenticated();
+
+        http
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+        http
+                .addFilter(new JwtAuthenticationFilter(authenticationManager(), secret, expiration_time))
+                .addFilter(new JwtAuthorizationFilter(authenticationManager(), userDetailsService, secret));
+
+        http
                 .headers().frameOptions().disable();
     }
 

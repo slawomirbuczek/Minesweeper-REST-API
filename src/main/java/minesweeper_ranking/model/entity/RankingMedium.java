@@ -8,8 +8,8 @@ import java.util.Date;
 import java.util.UUID;
 
 @Entity
-@Table(name = "level_hard", schema = "public")
-public class LevelHard extends RankingLevel {
+@Table(name = "ranking_medium", schema = "public")
+public class RankingMedium extends Ranking {
 
     @Id
     @GeneratedValue(generator = "UUID")

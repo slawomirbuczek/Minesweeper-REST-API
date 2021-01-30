@@ -10,7 +10,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class RankingLevel {
+public class Ranking {
 
     protected UUID id;
 

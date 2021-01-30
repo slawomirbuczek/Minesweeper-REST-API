@@ -1,12 +1,12 @@
 package minesweeper_ranking.repository;
 
-import minesweeper_ranking.model.entity.LevelHard;
+import minesweeper_ranking.model.entity.RankingHard;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
 @Repository
-public interface LevelHardRepository extends JpaRepository<LevelHard, UUID> {
+public interface RankingHardRepository extends JpaRepository<RankingHard, UUID> {
 
 }

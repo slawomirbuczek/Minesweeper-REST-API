@@ -1,14 +1,17 @@
 package minesweeper_ranking.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class ResponseMessage {
 
     private String message;
 
+    @Override
+    public String toString() {
+        return "{\"message\": \"" + message + "\"}";
+    }
 }

@@ -8,8 +8,8 @@ import java.util.Date;
 import java.util.UUID;
 
 @Entity
-@Table(name = "level_medium", schema = "public")
-public class LevelMedium extends RankingLevel {
+@Table(name = "ranking_easy", schema = "public")
+public class RankingEasy extends Ranking {
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -32,4 +32,5 @@ public class LevelMedium extends RankingLevel {
     public String getUsername() {
         return super.getUsername();
     }
+
 }

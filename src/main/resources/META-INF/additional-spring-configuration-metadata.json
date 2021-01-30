@@ -9,26 +9,6 @@
       "name": "api.jwt.expiration-time",
       "type": "java.lang.Long",
       "description": "JWT expiration time."
-    },
-    {
-      "name": "api.jwt.token-prefix",
-      "type": "java.lang.String",
-      "description": "JWT token prefix."
-    },
-    {
-      "name": "api.jwt.header-name",
-      "type": "java.lang.String",
-      "description": "Authorization header name."
-    },
-    {
-      "name": "api.login-endpoint",
-      "type": "java.lang.String",
-      "description": "Login endpoint."
-    },
-    {
-      "name": "api.registration-endpoint",
-      "type": "java.lang.String",
-      "description": "Registration endpoint."
     }
   ]
 }

@@ -1,7 +1,11 @@
 package minesweeper_ranking.authentication;
 
 import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,25 +18,21 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
     private final UserDetailsService userDetailsService;
-    private final String header_name;
-    private final String token_prefix;
     private final String secret;
 
     public JwtAuthorizationFilter(
             AuthenticationManager authManager,
             UserDetailsService userDetailsService,
-            String header_name,
-            String token_prefix,
             String secret) {
         super(authManager);
         this.userDetailsService = userDetailsService;
-        this.header_name = header_name;
-        this.token_prefix = token_prefix;
         this.secret = secret;
     }
 
@@ -41,9 +41,9 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
                                     HttpServletResponse res,
                                     FilterChain chain) throws IOException, ServletException {
 
-        String header = req.getHeader(header_name);
+        String bearerToken = req.getHeader(HttpHeaders.AUTHORIZATION);
 
-        if (header == null || !header.startsWith(token_prefix)) {
+        if (Objects.isNull(bearerToken) || !bearerToken.startsWith("Bearer ")) {
             chain.doFilter(req, res);
             return;
         }
@@ -55,20 +55,29 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     }
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
-        String token = request.getHeader(header_name);
+        String bearerToken = request.getHeader(HttpHeaders.AUTHORIZATION);
+        String jwt = bearerToken.replace("Bearer ", "");
 
-        if (token != null) {
-            String username = JWT.require(Algorithm.HMAC512(secret.getBytes()))
-                    .build()
-                    .verify(token.replace(token_prefix, ""))
-                    .getSubject();
+        String username = null;
 
-            if (username != null) {
-                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-                return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-            }
-            return null;
+        try {
+            JWTVerifier verifier = JWT
+                    .require(Algorithm.HMAC512(secret.getBytes(StandardCharsets.UTF_8)))
+                    .build();
+
+            DecodedJWT decodedJWT = verifier.verify(jwt);
+
+            username = decodedJWT.getSubject();
+
+        } catch (JWTVerificationException e) {
+           logger.warn(e.getMessage());
+        }
+
+        if (username != null) {
+            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+            return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
         }
         return null;
     }
+
 }

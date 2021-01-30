@@ -19,24 +19,4 @@ public class ApiProperties {
      */
     private long expiration_time;
 
-    /**
-     * JWT token prefix.
-     */
-    private String token_prefix;
-
-    /**
-     * Authorization header name.
-     */
-    private String header_name;
-
-    /**
-     * Login endpoint.
-     */
-    private String login_endpoint;
-
-    /**
-     * Registration endpoint.
-     */
-    private String registration_endpoint;
-
 }

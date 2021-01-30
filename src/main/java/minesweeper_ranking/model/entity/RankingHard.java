@@ -7,10 +7,9 @@ import javax.persistence.Table;
 import java.util.Date;
 import java.util.UUID;
 
-
 @Entity
-@Table(name = "level_easy", schema = "public")
-public class LevelEasy extends RankingLevel {
+@Table(name = "ranking_hard", schema = "public")
+public class RankingHard extends Ranking {
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -33,5 +32,4 @@ public class LevelEasy extends RankingLevel {
     public String getUsername() {
         return super.getUsername();
     }
-
 }

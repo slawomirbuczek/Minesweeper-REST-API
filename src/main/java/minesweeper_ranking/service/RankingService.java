@@ -1,21 +1,20 @@
 package minesweeper_ranking.service;
 
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import minesweeper_ranking.model.Level;
-import minesweeper_ranking.model.Record;
+import minesweeper_ranking.dto.RankingDto;
+import minesweeper_ranking.enums.Level;
 import minesweeper_ranking.model.ResponseMessage;
 import minesweeper_ranking.model.entity.*;
-import minesweeper_ranking.repository.LevelEasyRepository;
-import minesweeper_ranking.repository.LevelHardRepository;
-import minesweeper_ranking.repository.LevelMediumRepository;
+import minesweeper_ranking.repository.RankingEasyRepository;
+import minesweeper_ranking.repository.RankingHardRepository;
+import minesweeper_ranking.repository.RankingMediumRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,64 +22,59 @@ import java.util.List;
 @Service
 public class RankingService {
 
-    private final LevelEasyRepository levelEasyRepository;
-    private final LevelMediumRepository levelMediumRepository;
-    private final LevelHardRepository levelHardRepository;
+    private final RankingEasyRepository rankingEasyRepository;
+    private final RankingMediumRepository rankingMediumRepository;
+    private final RankingHardRepository rankingHardRepository;
 
-    public List<Record> getRanking(Level level) {
+    public List<RankingDto> getRanking(Level level) {
         Sort sort = Sort.by(Sort.Direction.ASC, "time");
         Pageable pageable = PageRequest.of(0, 50, sort);
 
-        List<Record> ranking = new ArrayList<>();
+        List<RankingDto> ranking = new ArrayList<>();
 
         switch (level) {
             case EASY:
-                ranking = mapToRecord(levelEasyRepository.findAll(pageable).getContent());
+                ranking = mapToRecord(rankingEasyRepository.findAll(pageable).getContent());
                 break;
             case MEDIUM:
-                ranking = mapToRecord(levelMediumRepository.findAll(pageable).getContent());
+                ranking = mapToRecord(rankingMediumRepository.findAll(pageable).getContent());
                 break;
             case HARD:
-                ranking = mapToRecord(levelHardRepository.findAll(pageable).getContent());
+                ranking = mapToRecord(rankingHardRepository.findAll(pageable).getContent());
                 break;
         }
 
         return ranking;
     }
 
-    private List<Record> mapToRecord(List<? extends RankingLevel> ranking) {
-        List<Record> recordList = new ArrayList<>();
+    private List<RankingDto> mapToRecord(List<? extends Ranking> ranking) {
+        List<RankingDto> rankingDtoList = new ArrayList<>();
         ModelMapper modelMapper = new ModelMapper();
-        ranking.forEach(rec -> recordList.add(modelMapper.map(rec, Record.class)));
-        return recordList;
+        ranking.forEach(rec -> rankingDtoList.add(modelMapper.map(rec, RankingDto.class)));
+        return rankingDtoList;
     }
 
-    public ResponseMessage addRecord(Record record, Level level) {
-
-        RankingLevel rankingLevel = new RankingLevel();
-        rankingLevel.setDate(record.getDate());
-        rankingLevel.setTime(record.getTime());
-        rankingLevel.setUsername(getCurrentPlayer().getUsername());
+    public ResponseMessage addRecord(RankingDto rankingDto, Level level, Principal principal) {
 
         ModelMapper modelMapper = new ModelMapper();
+
+        Ranking record = modelMapper.map(rankingDto, Ranking.class);
+
+        record.setUsername(principal.getName());
 
         switch (level) {
             case EASY:
-                levelEasyRepository.save(modelMapper.map(rankingLevel, LevelEasy.class));
+                rankingEasyRepository.save(modelMapper.map(record, RankingEasy.class));
                 break;
             case MEDIUM:
-                levelMediumRepository.save(modelMapper.map(rankingLevel, LevelMedium.class));
+                rankingMediumRepository.save(modelMapper.map(record, RankingMedium.class));
                 break;
             case HARD:
-                levelHardRepository.save(modelMapper.map(rankingLevel, LevelHard.class));
+                rankingHardRepository.save(modelMapper.map(record, RankingHard.class));
                 break;
         }
 
         return new ResponseMessage("Record added!");
-    }
-
-    private Player getCurrentPlayer() {
-        return (Player) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
 }
