@@ -1,10 +1,7 @@
 package minesweeper_ranking.authentication;
 
 import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -37,47 +34,46 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest req,
-                                    HttpServletResponse res,
-                                    FilterChain chain) throws IOException, ServletException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws IOException, ServletException {
 
-        String bearerToken = req.getHeader(HttpHeaders.AUTHORIZATION);
+        String bearerToken = request.getHeader(HttpHeaders.AUTHORIZATION);
 
-        if (Objects.isNull(bearerToken) || !bearerToken.startsWith("Bearer ")) {
-            chain.doFilter(req, res);
-            return;
+        if (Objects.nonNull(bearerToken) && isValid(bearerToken)) {
+            String username = getUsernameFromJWT(bearerToken);
+            try {
+                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                        userDetails, null, userDetails.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            } catch (Exception e) {
+                throw new IOException();
+            }
         }
 
-        UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        chain.doFilter(req, res);
+        filterChain.doFilter(request, response);
     }
 
-    private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
-        String bearerToken = request.getHeader(HttpHeaders.AUTHORIZATION);
+    private boolean isValid(String bearerToken) {
         String jwt = bearerToken.replace("Bearer ", "");
 
-        String username = null;
-
         try {
-            JWTVerifier verifier = JWT
-                    .require(Algorithm.HMAC512(secret.getBytes(StandardCharsets.UTF_8)))
-                    .build();
-
-            DecodedJWT decodedJWT = verifier.verify(jwt);
-
-            username = decodedJWT.getSubject();
-
-        } catch (JWTVerificationException e) {
-           logger.warn(e.getMessage());
+            JWT.require(Algorithm.HMAC512(secret.getBytes(StandardCharsets.UTF_8)))
+                    .build()
+                    .verify(jwt);
+            return true;
+        } catch (Exception e) {
+            return false;
         }
+    }
 
-        if (username != null) {
-            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-            return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-        }
-        return null;
+    private String getUsernameFromJWT(String bearerToken) {
+        String jwt = bearerToken.replace("Bearer ", "");
+
+        return JWT.require(Algorithm.HMAC512(secret.getBytes(StandardCharsets.UTF_8)))
+                .build()
+                .verify(jwt)
+                .getSubject();
     }
 
 }

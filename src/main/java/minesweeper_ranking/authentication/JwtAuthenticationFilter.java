@@ -25,7 +25,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     private final String secret;
     private final long expiration_time;
 
-    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, String secret, long expiration_time) {
+    public JwtAuthenticationFilter(AuthenticationManager authenticationManager,
+                                   String secret,
+                                   long expiration_time) {
         this.authenticationManager = authenticationManager;
         this.secret = secret;
         this.expiration_time = expiration_time;
@@ -34,10 +36,10 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     }
 
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) throws AuthenticationException {
+    public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res)
+            throws AuthenticationException {
         try {
-            Player details = new ObjectMapper()
-                    .readValue(req.getInputStream(), Player.class);
+            Player details = new ObjectMapper().readValue(req.getInputStream(), Player.class);
 
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
@@ -53,24 +55,16 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication auth) throws IOException {
-        String token = JWT.create()
+        response.addHeader(HttpHeaders.AUTHORIZATION, "Bearer " + createJwt(auth));
+        response.setContentType("application/json");
+        response.getOutputStream().print(new ResponseMessage("Logged in successfully").toString());
+    }
+
+    private String createJwt(Authentication auth) {
+        return JWT.create()
                 .withSubject(((Player) auth.getPrincipal()).getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + expiration_time))
                 .sign(Algorithm.HMAC512(secret.getBytes(StandardCharsets.UTF_8)));
-
-        response.addHeader(HttpHeaders.AUTHORIZATION, "Bearer " + token);
-        response.setContentType("application/json");
-        response.getWriter().print(new ResponseMessage("Logged in successfully").toString());
-        response.getWriter().flush();
-        response.getWriter().close();
     }
 
-    @Override
-    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException {
-        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        response.setContentType("application/json");
-        response.getWriter().print(new ResponseMessage("Invalid JWT").toString());
-        response.getWriter().flush();
-        response.getWriter().close();
-    }
 }

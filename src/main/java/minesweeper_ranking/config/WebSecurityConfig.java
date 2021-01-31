@@ -1,5 +1,6 @@
 package minesweeper_ranking.config;
 
+import minesweeper_ranking.authentication.JWTAuthenticationEntryPoint;
 import minesweeper_ranking.authentication.JwtAuthenticationFilter;
 import minesweeper_ranking.authentication.JwtAuthorizationFilter;
 import minesweeper_ranking.service.UserDetailsServiceImpl;
@@ -55,6 +56,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+        http
+                .exceptionHandling().authenticationEntryPoint(new JWTAuthenticationEntryPoint());
 
         http
                 .addFilter(new JwtAuthenticationFilter(authenticationManager(), secret, expiration_time))
