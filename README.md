@@ -1,7 +1,7 @@
 # Minesweeper-ranking
 Global ranking - backend for my [Minesweeper](https://github.com/slawomirbuczek/Minesweeper) android app. Deployed on Heroku.  
-Ranking contains records of each game won during playing on android app.  
-Players credentials and records are stored in Heroku Postres.
+Ranking contains records of each game won during playing on the android app.  
+Players credentials and records are stored in Heroku Postgres.
 
 ## Current functionalities:  
 * registration & login;

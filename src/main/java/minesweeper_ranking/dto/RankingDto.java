@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import java.util.Date;
 
 
@@ -19,8 +20,10 @@ public class RankingDto {
     @Min(0)
     private float time;
 
-
     @NotNull
     private Date date;
+
+    @Null
+    private String username;
 
 }
