@@ -17,7 +17,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-class RegistrationServiceTest {
+class RegistrationServiceTests {
 
     @Mock
     private PlayerRepository playerRepository;

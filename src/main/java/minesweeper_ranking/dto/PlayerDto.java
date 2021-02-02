@@ -16,7 +16,6 @@ public class PlayerDto {
 
     @Size(min = 4, message = "Username is too short")
     @Size(max = 15, message = "Username is too long")
-    @Pattern(regexp = "^[A-Z].*$", message = "Username must start with a capital character")
     @Pattern(regexp = "^[a-zA-Z]+$", message = "Username can contain only alphabet characters")
     private String username;
 

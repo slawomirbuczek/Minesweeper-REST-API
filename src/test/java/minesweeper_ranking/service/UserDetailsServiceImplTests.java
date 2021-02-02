@@ -19,7 +19,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-class UserDetailsServiceImplTest {
+class UserDetailsServiceImplTests {
 
     @Mock
     private PlayerRepository playerRepository;
@@ -35,7 +35,7 @@ class UserDetailsServiceImplTest {
 
         assertThatThrownBy(() -> userDetailsService.loadUserByUsername(username))
                 .isInstanceOf(UsernameNotFoundException.class)
-                .hasMessage("Player with username " + username + " already exists");
+                .hasMessage("Player with username " + username + " not found");
     }
 
     @Test

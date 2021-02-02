@@ -1,15 +1,17 @@
 package minesweeper_ranking.service;
 
-import minesweeper_ranking.dto.RankingDto;
 import minesweeper_ranking.enums.Level;
 import minesweeper_ranking.model.RankingEasy;
+import minesweeper_ranking.model.RequestRecord;
 import minesweeper_ranking.repository.RankingEasyRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-class RankingServiceTest {
+class RankingServiceTests {
 
     @Mock
     private RankingEasyRepository rankingEasyRepository;
@@ -31,19 +33,19 @@ class RankingServiceTest {
     private RankingService rankingService;
 
     @Test
-    void shouldAlwaysReturnMessage() {
-        RankingDto rankingDto = new RankingDto(12, new Date());
+    void shouldAlwaysReturnMessageWhenAddingRecord() {
+        RequestRecord record = new RequestRecord(12, new Date());
         Principal principal = () -> "Anon";
 
         given(rankingEasyRepository.save(any(RankingEasy.class))).
                 willAnswer(i -> i.getArgument(0, RankingEasy.class));
 
-        assertThat(rankingService.addRecord(rankingDto, Level.EASY, principal).getMessage())
+        assertThat(rankingService.addRecord(record, Level.EASY, principal).getMessage())
                 .isEqualTo("Record added!");
     }
 
     @Test
-    void shouldReturnListOfRankingDto() {
+    void shouldReturnListOfRankingDtoWhenGettingRanking() {
         Page<RankingEasy> page = new PageImpl<>(getRankingEasyList());
 
         given(rankingEasyRepository.findAll(any(Pageable.class))).willReturn(page);

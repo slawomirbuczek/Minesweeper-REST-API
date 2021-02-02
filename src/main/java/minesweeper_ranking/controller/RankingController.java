@@ -1,8 +1,9 @@
 package minesweeper_ranking.controller;
 
 import lombok.AllArgsConstructor;
-import minesweeper_ranking.enums.Level;
 import minesweeper_ranking.dto.RankingDto;
+import minesweeper_ranking.enums.Level;
+import minesweeper_ranking.model.RequestRecord;
 import minesweeper_ranking.model.ResponseMessage;
 import minesweeper_ranking.service.RankingService;
 import org.springframework.http.ResponseEntity;
@@ -26,9 +27,9 @@ public class RankingController {
 
     @PostMapping("/{level}")
     public ResponseEntity<ResponseMessage> addRecord(
-            @Valid @RequestBody RankingDto rankingDto,
+            @Valid @RequestBody RequestRecord record,
             @PathVariable(name = "level") Level level,
             Principal principal) {
-        return ResponseEntity.ok(rankingService.addRecord(rankingDto, level, principal));
+        return ResponseEntity.ok(rankingService.addRecord(record, level, principal));
     }
 }

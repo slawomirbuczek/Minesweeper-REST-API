@@ -53,23 +53,23 @@ public class RankingService {
         return rankingDtoList;
     }
 
-    public ResponseMessage addRecord(RankingDto rankingDto, Level level, Principal principal) {
+    public ResponseMessage addRecord(RequestRecord record, Level level, Principal principal) {
 
         ModelMapper modelMapper = new ModelMapper();
 
-        Ranking record = modelMapper.map(rankingDto, Ranking.class);
+        Ranking ranking = modelMapper.map(record, Ranking.class);
 
-        record.setUsername(principal.getName());
+        ranking.setUsername(principal.getName());
 
         switch (level) {
             case EASY:
-                rankingEasyRepository.save(modelMapper.map(record, RankingEasy.class));
+                rankingEasyRepository.save(modelMapper.map(ranking, RankingEasy.class));
                 break;
             case MEDIUM:
-                rankingMediumRepository.save(modelMapper.map(record, RankingMedium.class));
+                rankingMediumRepository.save(modelMapper.map(ranking, RankingMedium.class));
                 break;
             case HARD:
-                rankingHardRepository.save(modelMapper.map(record, RankingHard.class));
+                rankingHardRepository.save(modelMapper.map(ranking, RankingHard.class));
                 break;
         }
 
