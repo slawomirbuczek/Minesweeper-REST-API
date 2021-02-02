@@ -26,4 +26,8 @@ public class RankingDto {
     @Null
     private String username;
 
+    public RankingDto(@Min(0) float time, @NotNull Date date) {
+        this.time = time;
+        this.date = date;
+    }
 }

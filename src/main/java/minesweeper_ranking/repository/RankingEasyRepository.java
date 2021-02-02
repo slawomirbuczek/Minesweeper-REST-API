@@ -1,6 +1,6 @@
 package minesweeper_ranking.repository;
 
-import minesweeper_ranking.model.entity.RankingEasy;
+import minesweeper_ranking.model.RankingEasy;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

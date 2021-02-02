@@ -1,6 +1,7 @@
-package minesweeper_ranking.model.entity;
+package minesweeper_ranking.model;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
@@ -20,6 +21,7 @@ import java.util.UUID;
 
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Entity
 @Table(name = "player", schema = "public")

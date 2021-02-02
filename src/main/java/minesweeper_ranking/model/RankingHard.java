@@ -1,4 +1,4 @@
-package minesweeper_ranking.model.entity;
+package minesweeper_ranking.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,8 +8,8 @@ import java.util.Date;
 import java.util.UUID;
 
 @Entity
-@Table(name = "ranking_easy", schema = "public")
-public class RankingEasy extends Ranking {
+@Table(name = "ranking_hard", schema = "public")
+public class RankingHard extends Ranking {
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -32,5 +32,4 @@ public class RankingEasy extends Ranking {
     public String getUsername() {
         return super.getUsername();
     }
-
 }
