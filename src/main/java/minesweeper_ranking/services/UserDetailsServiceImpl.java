@@ -1,8 +1,8 @@
-package minesweeper_ranking.service;
+package minesweeper_ranking.services;
 
 import lombok.AllArgsConstructor;
-import minesweeper_ranking.model.Player;
-import minesweeper_ranking.repository.PlayerRepository;
+import minesweeper_ranking.entities.Player;
+import minesweeper_ranking.repositories.PlayerRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

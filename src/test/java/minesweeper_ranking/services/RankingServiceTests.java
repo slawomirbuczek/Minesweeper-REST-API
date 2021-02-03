@@ -1,9 +1,9 @@
-package minesweeper_ranking.service;
+package minesweeper_ranking.services;
 
 import minesweeper_ranking.enums.Level;
-import minesweeper_ranking.model.RankingEasy;
-import minesweeper_ranking.model.RequestRecord;
-import minesweeper_ranking.repository.RankingEasyRepository;
+import minesweeper_ranking.entities.RankingEasy;
+import minesweeper_ranking.models.RequestRecord;
+import minesweeper_ranking.repositories.RankingEasyRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

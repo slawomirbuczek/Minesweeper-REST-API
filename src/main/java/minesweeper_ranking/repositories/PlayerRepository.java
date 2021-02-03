@@ -1,6 +1,6 @@
-package minesweeper_ranking.repository;
+package minesweeper_ranking.repositories;
 
-import minesweeper_ranking.model.Player;
+import minesweeper_ranking.entities.Player;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

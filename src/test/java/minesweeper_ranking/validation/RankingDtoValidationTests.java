@@ -1,8 +1,6 @@
 package minesweeper_ranking.validation;
 
-import minesweeper_ranking.dto.PlayerDto;
-import minesweeper_ranking.dto.RankingDto;
-import minesweeper_ranking.model.RequestRecord;
+import minesweeper_ranking.models.RequestRecord;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

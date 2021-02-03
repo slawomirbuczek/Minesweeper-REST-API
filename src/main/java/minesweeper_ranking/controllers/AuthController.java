@@ -1,10 +1,10 @@
-package minesweeper_ranking.controller;
+package minesweeper_ranking.controllers;
 
 
 import lombok.AllArgsConstructor;
 import minesweeper_ranking.dto.PlayerDto;
-import minesweeper_ranking.model.ResponseMessage;
-import minesweeper_ranking.service.RegistrationService;
+import minesweeper_ranking.models.ResponseMessage;
+import minesweeper_ranking.services.RegistrationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

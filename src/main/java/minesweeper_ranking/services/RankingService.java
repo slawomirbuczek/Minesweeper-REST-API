@@ -1,12 +1,15 @@
-package minesweeper_ranking.service;
+package minesweeper_ranking.services;
 
 import lombok.AllArgsConstructor;
 import minesweeper_ranking.dto.RankingDto;
+import minesweeper_ranking.entities.RankingEasy;
+import minesweeper_ranking.entities.RankingHard;
+import minesweeper_ranking.entities.RankingMedium;
 import minesweeper_ranking.enums.Level;
-import minesweeper_ranking.model.*;
-import minesweeper_ranking.repository.RankingEasyRepository;
-import minesweeper_ranking.repository.RankingHardRepository;
-import minesweeper_ranking.repository.RankingMediumRepository;
+import minesweeper_ranking.models.*;
+import minesweeper_ranking.repositories.RankingEasyRepository;
+import minesweeper_ranking.repositories.RankingHardRepository;
+import minesweeper_ranking.repositories.RankingMediumRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

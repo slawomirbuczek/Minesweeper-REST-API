@@ -1,9 +1,9 @@
-package minesweeper_ranking.service;
+package minesweeper_ranking.services;
 
 import minesweeper_ranking.dto.PlayerDto;
 import minesweeper_ranking.exceptions.UserAlreadyExistsException;
-import minesweeper_ranking.model.ResponseMessage;
-import minesweeper_ranking.repository.PlayerRepository;
+import minesweeper_ranking.models.ResponseMessage;
+import minesweeper_ranking.repositories.PlayerRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

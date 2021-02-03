@@ -1,4 +1,6 @@
-package minesweeper_ranking.model;
+package minesweeper_ranking.entities;
+
+import minesweeper_ranking.models.Ranking;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

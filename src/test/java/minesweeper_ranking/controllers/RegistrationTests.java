@@ -1,10 +1,10 @@
-package minesweeper_ranking.controller;
+package minesweeper_ranking.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import minesweeper_ranking.dto.PlayerDto;
-import minesweeper_ranking.model.ResponseMessage;
-import minesweeper_ranking.service.RegistrationService;
-import minesweeper_ranking.service.UserDetailsServiceImpl;
+import minesweeper_ranking.models.ResponseMessage;
+import minesweeper_ranking.services.RegistrationService;
+import minesweeper_ranking.services.UserDetailsServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
