@@ -29,7 +29,7 @@ class UserDetailsServiceImplTests {
 
     @Test
     void shouldThrowExceptionWhenUserNotFound() {
-        given(playerRepository.findPlayerByUsername(any(String.class))).willReturn(Optional.empty());
+        given(playerRepository.findByUsername(any(String.class))).willReturn(Optional.empty());
 
         String username = "Anon";
 
@@ -42,7 +42,7 @@ class UserDetailsServiceImplTests {
     void shouldReturnUserDetailsWhenUserFound() {
         Player player = new Player(UUID.randomUUID(), "Anon", "password");
 
-        given(playerRepository.findPlayerByUsername(any(String.class))).willReturn(Optional.of(player));
+        given(playerRepository.findByUsername(any(String.class))).willReturn(Optional.of(player));
 
         UserDetails userDetails = userDetailsService.loadUserByUsername("Anon");
 

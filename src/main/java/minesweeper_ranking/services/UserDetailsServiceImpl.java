@@ -19,7 +19,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Optional<Player> optionalPlayer = playerRepository.findPlayerByUsername(username);
+        Optional<Player> optionalPlayer = playerRepository.findByUsername(username);
 
         return optionalPlayer.orElseThrow(() -> new UsernameNotFoundException(
                 "Player with username " + username + " not found"

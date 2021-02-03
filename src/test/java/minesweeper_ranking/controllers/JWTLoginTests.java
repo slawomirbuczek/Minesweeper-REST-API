@@ -64,7 +64,7 @@ class JWTLoginTests {
         ModelMapper modelMapper = new ModelMapper();
         Player anon = modelMapper.map(playerDto, Player.class);
         anon.setPassword(passwordEncoder.encode(anon.getPassword()));
-        given(playerRepository.findPlayerByUsername("Anon"))
+        given(playerRepository.findByUsername("Anon"))
                 .willReturn(Optional.of(anon));
 
         MvcResult result = mvc.perform(

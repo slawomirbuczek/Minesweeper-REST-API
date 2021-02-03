@@ -2,8 +2,8 @@ package minesweeper_ranking.services;
 
 import lombok.AllArgsConstructor;
 import minesweeper_ranking.dto.PlayerDto;
-import minesweeper_ranking.exceptions.UserAlreadyExistsException;
 import minesweeper_ranking.entities.Player;
+import minesweeper_ranking.exceptions.UserAlreadyExistsException;
 import minesweeper_ranking.models.ResponseMessage;
 import minesweeper_ranking.repositories.PlayerRepository;
 import org.modelmapper.ModelMapper;

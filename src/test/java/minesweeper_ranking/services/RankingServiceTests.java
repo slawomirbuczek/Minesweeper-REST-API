@@ -1,7 +1,7 @@
 package minesweeper_ranking.services;
 
-import minesweeper_ranking.enums.Level;
 import minesweeper_ranking.entities.RankingEasy;
+import minesweeper_ranking.enums.Level;
 import minesweeper_ranking.models.RequestRecord;
 import minesweeper_ranking.repositories.RankingEasyRepository;
 import org.junit.jupiter.api.Test;

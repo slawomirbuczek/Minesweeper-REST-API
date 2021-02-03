@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-
 import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
