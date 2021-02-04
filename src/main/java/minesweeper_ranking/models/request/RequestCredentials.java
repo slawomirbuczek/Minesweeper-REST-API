@@ -1,4 +1,4 @@
-package minesweeper_ranking.dto;
+package minesweeper_ranking.models.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PlayerDto {
+public class RequestCredentials {
 
     @Size(min = 4, message = "Username is too short")
     @Size(max = 15, message = "Username is too long")

@@ -1,54 +1,138 @@
 package minesweeper_ranking.services;
 
 import lombok.AllArgsConstructor;
-import minesweeper_ranking.models.Statistics;
-import minesweeper_ranking.repositories.RankingEasyRepository;
-import minesweeper_ranking.repositories.RankingHardRepository;
-import minesweeper_ranking.repositories.RankingMediumRepository;
+import minesweeper_ranking.dto.statistics.StatisticsDto;
+import minesweeper_ranking.enums.Level;
+import minesweeper_ranking.models.player.Player;
+import minesweeper_ranking.models.request.RequestRecord;
+import minesweeper_ranking.models.response.ResponseStatistics;
+import minesweeper_ranking.models.statistics.Statistics;
+import minesweeper_ranking.models.statistics.StatisticsEasy;
+import minesweeper_ranking.models.statistics.StatisticsHard;
+import minesweeper_ranking.models.statistics.StatisticsMedium;
+import minesweeper_ranking.repositories.player.PlayerRepository;
+import minesweeper_ranking.repositories.statistics.StatisticsEasyRepository;
+import minesweeper_ranking.repositories.statistics.StatisticsHardRepository;
+import minesweeper_ranking.repositories.statistics.StatisticsMediumRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @AllArgsConstructor
 @Service
 public class StatisticsService {
 
-    private final RankingEasyRepository rankingEasyRepository;
-    private final RankingMediumRepository rankingMediumRepository;
-    private final RankingHardRepository rankingHardRepository;
+    private final PlayerRepository playerRepository;
 
+    private final StatisticsEasyRepository statisticsEasyRepository;
+    private final StatisticsMediumRepository statisticsMediumRepository;
+    private final StatisticsHardRepository statisticsHardRepository;
 
-    public Statistics getStatistics(String username) {
-        Statistics statistics = new Statistics();
-        statistics.setEasyGamesWon(getNumberOfEasyGamesWon(username));
-        statistics.setMediumGamesWon(getNumberOfMediumGamesWon(username));
-        statistics.setHardGamesWon(getNumberOfHardGamesWon(username));
-        statistics.setAverageEasyGameTime(getAverageTimeOfEasyGames(username));
-        statistics.setAverageMediumGameTime(getAverageTimeOfMediumGames(username));
-        statistics.setAverageHardGameTime(getAverageTimeOfHardGames(username));
+    public ResponseStatistics getResponseStatistics(String username) {
+        Player player = getPlayerByUsername(username);
+        ResponseStatistics statistics = new ResponseStatistics();
+
+        statistics.setUsername(username);
+
+        Statistics easyStats = getStatistics(Level.EASY, player);
+        statistics.setStatisticsEasy(mapToStatisticsDto(easyStats));
+
+        Statistics mediumStats = getStatistics(Level.MEDIUM, player);
+        statistics.setStatisticsMedium(mapToStatisticsDto(mediumStats));
+
+        Statistics hardStats = getStatistics(Level.HARD, player);
+        statistics.setStatisticsHard(mapToStatisticsDto(hardStats));
+
         return statistics;
     }
 
-    private int getNumberOfEasyGamesWon(String username) {
-        return rankingEasyRepository.countByUsername(username);
+    public void updateStatisticsWhenGameWon(Level level, Player player, RequestRecord record) {
+        Statistics statistics = getStatistics(level, player);
+
+        statistics.setTotalGamesPlayed(statistics.getTotalGamesPlayed() + 1);
+        statistics.setGamesWon(statistics.getGamesWon() + 1);
+        statistics.setTotalTime(statistics.getTotalTime() + record.getTime());
+        statistics.setAverageTime(
+                ((statistics.getAverageTime() * (statistics.getGamesWon() - 1)) + record.getTime())
+                        / statistics.getGamesWon()
+        );
+        statistics.setBestTime(
+                statistics.getBestTime() == 0 ? record.getTime() :
+                        Math.min(statistics.getBestTime(), record.getTime())
+        );
+
+        saveStatistics(level, statistics);
     }
 
-    private int getNumberOfMediumGamesWon(String username) {
-        return rankingMediumRepository.countByUsername(username);
+    public void updateStatisticsWhenGameLost(Level level, String username, RequestRecord record) {
+        Player player = getPlayerByUsername(username);
+        Statistics statistics = getStatistics(level, player);
+
+        statistics.setTotalGamesPlayed(statistics.getTotalGamesPlayed() + 1);
+        statistics.setTotalTime(statistics.getTotalTime() + record.getTime());
+
+        saveStatistics(level, statistics);
     }
 
-    private int getNumberOfHardGamesWon(String username) {
-        return rankingHardRepository.countByUsername(username);
+    private void saveStatistics(Level level, Statistics statistics) {
+        switch (level) {
+            case EASY:
+                statisticsEasyRepository.save((StatisticsEasy) statistics);
+                break;
+            case MEDIUM:
+                statisticsMediumRepository.save((StatisticsMedium) statistics);
+                break;
+            case HARD:
+                statisticsHardRepository.save((StatisticsHard) statistics);
+                break;
+        }
     }
 
-    private float getAverageTimeOfEasyGames(String username) {
-        return rankingEasyRepository.averageTime(username).orElse(0f);
+    private Statistics getStatistics(Level level, Player player) {
+        Optional<Statistics> stats = Optional.empty();
+        switch (level) {
+            case EASY:
+                stats = statisticsEasyRepository.findByPlayer(player);
+                break;
+            case MEDIUM:
+                stats = statisticsMediumRepository.findByPlayer(player);
+                break;
+            case HARD:
+                stats = statisticsHardRepository.findByPlayer(player);
+                break;
+        }
+        return stats.orElseGet(() -> createNewEmptyStatistics(level, player));
     }
 
-    private float getAverageTimeOfMediumGames(String username) {
-        return rankingMediumRepository.averageTime(username).orElse(0f);
+    private Statistics createNewEmptyStatistics(Level level, Player player) {
+        Statistics stats = null;
+        switch (level) {
+            case EASY:
+                stats = new StatisticsEasy();
+                stats.setPlayer(player);
+                stats = statisticsEasyRepository.save((StatisticsEasy) stats);
+                break;
+            case MEDIUM:
+                stats = new StatisticsMedium();
+                stats.setPlayer(player);
+                stats = statisticsMediumRepository.save((StatisticsMedium) stats);
+                break;
+            case HARD:
+                stats = new StatisticsHard();
+                stats.setPlayer(player);
+                stats = statisticsHardRepository.save((StatisticsHard) stats);
+                break;
+        }
+        return stats;
     }
 
-    private float getAverageTimeOfHardGames(String username) {
-        return rankingHardRepository.averageTime(username).orElse(0f);
+    private StatisticsDto mapToStatisticsDto(Statistics statistics) {
+        return new ModelMapper().map(statistics, StatisticsDto.class);
+    }
+
+    private Player getPlayerByUsername(String username) {
+        return playerRepository.findByUsername(username).orElse(null);
     }
 
 }

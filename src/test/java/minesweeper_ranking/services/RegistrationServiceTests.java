@@ -1,9 +1,9 @@
 package minesweeper_ranking.services;
 
-import minesweeper_ranking.dto.PlayerDto;
+import minesweeper_ranking.models.request.RequestCredentials;
 import minesweeper_ranking.exceptions.UserAlreadyExistsException;
-import minesweeper_ranking.models.ResponseMessage;
-import minesweeper_ranking.repositories.PlayerRepository;
+import minesweeper_ranking.models.response.ResponseMessage;
+import minesweeper_ranking.repositories.player.PlayerRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -32,9 +32,9 @@ class RegistrationServiceTests {
     void shouldReturnMessageWhenUserCreated() {
         given(playerRepository.existsByUsername(any(String.class))).willReturn(false);
 
-        PlayerDto playerDto = new PlayerDto("Anon", "password");
+        RequestCredentials requestCredentials = new RequestCredentials("Anon", "password");
 
-        ResponseMessage message = registrationService.addPlayer(playerDto);
+        ResponseMessage message = registrationService.addPlayer(requestCredentials);
 
         assertThat(message.getMessage()).isEqualTo("Registered successfully");
     }
@@ -43,11 +43,11 @@ class RegistrationServiceTests {
     void shouldThrowExceptionWheUsernameIsTaken() {
         given(playerRepository.existsByUsername(any(String.class))).willReturn(true);
 
-        PlayerDto playerDto = new PlayerDto("Anon", "password");
+        RequestCredentials requestCredentials = new RequestCredentials("Anon", "password");
 
-        assertThatThrownBy(() -> registrationService.addPlayer(playerDto))
+        assertThatThrownBy(() -> registrationService.addPlayer(requestCredentials))
                 .isInstanceOf(UserAlreadyExistsException.class)
-                .hasMessage("Player with username " + playerDto.getUsername() + " already exists");
+                .hasMessage("Player with username " + requestCredentials.getUsername() + " already exists");
     }
 
 }

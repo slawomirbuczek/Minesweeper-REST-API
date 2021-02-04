@@ -1,10 +1,9 @@
 package minesweeper_ranking.controllers;
 
 import lombok.AllArgsConstructor;
-import minesweeper_ranking.dto.RankingDto;
+import minesweeper_ranking.dto.ranking.RecordDto;
 import minesweeper_ranking.enums.Level;
-import minesweeper_ranking.models.RequestRecord;
-import minesweeper_ranking.models.ResponseMessage;
+import minesweeper_ranking.models.request.RequestRecord;
 import minesweeper_ranking.services.RankingService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,15 +20,15 @@ public class RankingController {
     private final RankingService rankingService;
 
     @GetMapping("/{level}")
-    public List<RankingDto> getRecords(@PathVariable(name = "level") Level level) {
+    public List<RecordDto> getRecords(@PathVariable(name = "level") Level level) {
         return rankingService.getRanking(level);
     }
 
     @PostMapping("/{level}")
-    public ResponseEntity<ResponseMessage> addRecord(
+    public ResponseEntity<RecordDto> addRecord(
             @Valid @RequestBody RequestRecord record,
             @PathVariable(name = "level") Level level,
             Principal principal) {
-        return ResponseEntity.ok(rankingService.addRecord(record, level, principal));
+        return ResponseEntity.ok(rankingService.addRecord(record, level, principal.getName()));
     }
 }

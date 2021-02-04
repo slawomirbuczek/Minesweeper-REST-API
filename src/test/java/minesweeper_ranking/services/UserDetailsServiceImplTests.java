@@ -1,7 +1,8 @@
 package minesweeper_ranking.services;
 
-import minesweeper_ranking.entities.Player;
-import minesweeper_ranking.repositories.PlayerRepository;
+import minesweeper_ranking.authentication.UserDetailsServiceImpl;
+import minesweeper_ranking.models.player.Player;
+import minesweeper_ranking.repositories.player.PlayerRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

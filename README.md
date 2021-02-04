@@ -1,7 +1,7 @@
 # Minesweeper-ranking
 Global ranking - backend for my [Minesweeper](https://github.com/slawomirbuczek/Minesweeper) android app. Deployed on Heroku.  
 Ranking contains records of each game won during playing on the android app.  
-Players credentials and records are stored in Heroku Postgres.
+Players requestCredentials and records are stored in Heroku Postgres.
 
 ## Current functionalities:  
 * registration & login;
@@ -18,7 +18,7 @@ Players credentials and records are stored in Heroku Postgres.
 * Spring JPA:
   * db contains four entities, one for user and three for each game level;
 * Spring Validation:
-  * validating credentials during registration;
+  * validating requestCredentials during registration;
 * H2:
   * used locally for developing and testing;
 * PostgreSQL:

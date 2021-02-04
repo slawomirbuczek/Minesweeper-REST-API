@@ -1,10 +1,10 @@
 package minesweeper_ranking.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import minesweeper_ranking.dto.PlayerDto;
-import minesweeper_ranking.models.ResponseMessage;
+import minesweeper_ranking.models.request.RequestCredentials;
+import minesweeper_ranking.models.response.ResponseMessage;
 import minesweeper_ranking.services.RegistrationService;
-import minesweeper_ranking.services.UserDetailsServiceImpl;
+import minesweeper_ranking.authentication.UserDetailsServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -36,14 +36,14 @@ public class RegistrationTests {
     void shouldRegisterNewPlayerWhenCredentialsAreCorrect() throws Exception {
         ResponseMessage response = new ResponseMessage("Registered successfully");
 
-        given(registrationService.addPlayer(any(PlayerDto.class))).willReturn(response);
+        given(registrationService.addPlayer(any(RequestCredentials.class))).willReturn(response);
 
-        PlayerDto playerDto = new PlayerDto("Anon", "password");
+        RequestCredentials requestCredentials = new RequestCredentials("Anon", "password");
 
         mvc.perform(
                 post("/api/register")
                         .contentType("application/json")
-                        .content(objectMapper.writeValueAsString(playerDto)))
+                        .content(objectMapper.writeValueAsString(requestCredentials)))
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(response)));
 

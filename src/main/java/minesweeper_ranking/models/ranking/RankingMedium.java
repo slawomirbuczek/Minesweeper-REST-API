@@ -1,11 +1,8 @@
-package minesweeper_ranking.entities;
+package minesweeper_ranking.models.ranking;
 
-import minesweeper_ranking.models.Ranking;
+import minesweeper_ranking.models.player.Player;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
 
@@ -14,10 +11,16 @@ import java.util.UUID;
 public class RankingMedium extends Ranking {
 
     @Id
-    @GeneratedValue(generator = "UUID")
+    @GeneratedValue
     @Override
     public UUID getId() {
         return super.getId();
+    }
+
+    @Override
+    @ManyToOne
+    public Player getPlayer() {
+        return super.getPlayer();
     }
 
     @Override
@@ -30,8 +33,4 @@ public class RankingMedium extends Ranking {
         return super.getTime();
     }
 
-    @Override
-    public String getUsername() {
-        return super.getUsername();
-    }
 }

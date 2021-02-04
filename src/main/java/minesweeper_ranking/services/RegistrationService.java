@@ -1,11 +1,11 @@
 package minesweeper_ranking.services;
 
 import lombok.AllArgsConstructor;
-import minesweeper_ranking.dto.PlayerDto;
-import minesweeper_ranking.entities.Player;
+import minesweeper_ranking.models.request.RequestCredentials;
+import minesweeper_ranking.models.player.Player;
 import minesweeper_ranking.exceptions.UserAlreadyExistsException;
-import minesweeper_ranking.models.ResponseMessage;
-import minesweeper_ranking.repositories.PlayerRepository;
+import minesweeper_ranking.models.response.ResponseMessage;
+import minesweeper_ranking.repositories.player.PlayerRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,16 +17,16 @@ public class RegistrationService {
     private final PlayerRepository playerRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public ResponseMessage addPlayer(PlayerDto playerDto) {
-        String username = playerDto.getUsername();
+    public ResponseMessage addPlayer(RequestCredentials requestCredentials) {
+        String username = requestCredentials.getUsername();
 
         if (playerRepository.existsByUsername(username)) {
             throw new UserAlreadyExistsException(username);
         }
 
-        playerDto.setPassword(passwordEncoder.encode(playerDto.getPassword()));
+        requestCredentials.setPassword(passwordEncoder.encode(requestCredentials.getPassword()));
 
-        Player player = new ModelMapper().map(playerDto, Player.class);
+        Player player = new ModelMapper().map(requestCredentials, Player.class);
         playerRepository.save(player);
 
         return new ResponseMessage("Registered successfully");

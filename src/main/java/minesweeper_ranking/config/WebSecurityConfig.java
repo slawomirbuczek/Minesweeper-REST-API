@@ -3,7 +3,7 @@ package minesweeper_ranking.config;
 import minesweeper_ranking.authentication.JWTAuthenticationEntryPoint;
 import minesweeper_ranking.authentication.JwtAuthenticationFilter;
 import minesweeper_ranking.authentication.JwtAuthorizationFilter;
-import minesweeper_ranking.services.UserDetailsServiceImpl;
+import minesweeper_ranking.authentication.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.context.annotation.Bean;

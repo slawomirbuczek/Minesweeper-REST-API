@@ -1,6 +1,7 @@
 package minesweeper_ranking.repositories;
 
-import minesweeper_ranking.entities.Player;
+import minesweeper_ranking.models.player.Player;
+import minesweeper_ranking.repositories.player.PlayerRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;

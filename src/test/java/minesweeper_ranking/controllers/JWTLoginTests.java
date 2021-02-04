@@ -1,10 +1,10 @@
 package minesweeper_ranking.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import minesweeper_ranking.dto.PlayerDto;
-import minesweeper_ranking.entities.Player;
-import minesweeper_ranking.models.ResponseMessage;
-import minesweeper_ranking.repositories.PlayerRepository;
+import minesweeper_ranking.models.request.RequestCredentials;
+import minesweeper_ranking.models.player.Player;
+import minesweeper_ranking.models.response.ResponseMessage;
+import minesweeper_ranking.repositories.player.PlayerRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
@@ -40,11 +40,11 @@ class JWTLoginTests {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    private static PlayerDto playerDto;
+    private static RequestCredentials requestCredentials;
 
     @BeforeAll
     static void setUp() {
-        playerDto = new PlayerDto("Anon", "password");
+        requestCredentials = new RequestCredentials("Anon", "password");
     }
 
     @Test
@@ -52,7 +52,7 @@ class JWTLoginTests {
         MvcResult result = mvc.perform(
                 post("/api/login")
                         .content("application/json")
-                        .content(objectMapper.writeValueAsString(playerDto)))
+                        .content(objectMapper.writeValueAsString(requestCredentials)))
                 .andReturn();
 
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.UNAUTHORIZED.value());
@@ -62,7 +62,7 @@ class JWTLoginTests {
     @Test
     void shouldReturnJWTWhenCredentialsAreCorrect() throws Exception {
         ModelMapper modelMapper = new ModelMapper();
-        Player anon = modelMapper.map(playerDto, Player.class);
+        Player anon = modelMapper.map(requestCredentials, Player.class);
         anon.setPassword(passwordEncoder.encode(anon.getPassword()));
         given(playerRepository.findByUsername("Anon"))
                 .willReturn(Optional.of(anon));
@@ -70,7 +70,7 @@ class JWTLoginTests {
         MvcResult result = mvc.perform(
                 post("/api/login")
                         .content("application/json")
-                        .content(objectMapper.writeValueAsString(playerDto)))
+                        .content(objectMapper.writeValueAsString(requestCredentials)))
                 .andReturn();
 
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());

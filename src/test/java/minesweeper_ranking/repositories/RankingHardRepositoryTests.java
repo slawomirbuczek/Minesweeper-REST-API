@@ -1,6 +1,8 @@
 package minesweeper_ranking.repositories;
 
-import minesweeper_ranking.entities.RankingHard;
+import minesweeper_ranking.models.player.Player;
+import minesweeper_ranking.models.ranking.RankingHard;
+import minesweeper_ranking.repositories.ranking.RankingHardRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -26,13 +28,16 @@ class RankingHardRepositoryTests {
         entityManager.persist(getRecord(20f));
         entityManager.flush();
 
-        assertThat(rankingHardRepository.countByUsername("Anon")).isEqualTo(3);
+        assertThat(rankingHardRepository.countByPlayerUsername("Anon")).isEqualTo(3);
         assertThat(rankingHardRepository.averageTime("Anon")).isEqualTo(Optional.of(15f));
     }
 
     private RankingHard getRecord(float time) {
+        Player player = new Player();
+        player.setUsername("Anon");
+        entityManager.persistAndFlush(player);
         RankingHard rankingHard = new RankingHard();
-        rankingHard.setUsername("Anon");
+        rankingHard.setPlayer(player);
         rankingHard.setTime(time);
         return rankingHard;
     }

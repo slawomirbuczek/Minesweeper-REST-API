@@ -1,4 +1,4 @@
-package minesweeper_ranking.models;
+package minesweeper_ranking.models.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,8 +7,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class ResponseMessage {
 
     private String message;

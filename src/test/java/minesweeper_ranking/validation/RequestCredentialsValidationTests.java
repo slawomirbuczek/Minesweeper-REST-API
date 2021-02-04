@@ -1,7 +1,7 @@
 package minesweeper_ranking.validation;
 
 
-import minesweeper_ranking.dto.PlayerDto;
+import minesweeper_ranking.models.request.RequestCredentials;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +14,7 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class PlayerDtoValidationTests {
+public class RequestCredentialsValidationTests {
 
     private static Validator validator;
 
@@ -26,16 +26,16 @@ public class PlayerDtoValidationTests {
 
     @Test
     void shouldPassWhenDataIsCorrect() {
-        PlayerDto playerDto = new PlayerDto(generateStringWithLength(5), generateStringWithLength(5));
+        RequestCredentials requestCredentials = new RequestCredentials(generateStringWithLength(5), generateStringWithLength(5));
 
-        assertThat(validator.validate(playerDto)).isEmpty();
+        assertThat(validator.validate(requestCredentials)).isEmpty();
     }
 
     @Test
     void shouldReturnViolationWhenUsernameIsTooShort() {
-        PlayerDto playerDto = new PlayerDto(generateStringWithLength(2), generateStringWithLength(5));
+        RequestCredentials requestCredentials = new RequestCredentials(generateStringWithLength(2), generateStringWithLength(5));
 
-        Set<ConstraintViolation<PlayerDto>> violations = validator.validate(playerDto);
+        Set<ConstraintViolation<RequestCredentials>> violations = validator.validate(requestCredentials);
 
         assertThat(violations).hasSize(1);
         assertThat(violations.iterator().next().getMessage()).isEqualTo("Username is too short");
@@ -43,9 +43,9 @@ public class PlayerDtoValidationTests {
 
     @Test
     void shouldReturnViolationWhenUsernameIsTooLong() {
-        PlayerDto playerDto = new PlayerDto(generateStringWithLength(16), generateStringWithLength(5));
+        RequestCredentials requestCredentials = new RequestCredentials(generateStringWithLength(16), generateStringWithLength(5));
 
-        Set<ConstraintViolation<PlayerDto>> violations = validator.validate(playerDto);
+        Set<ConstraintViolation<RequestCredentials>> violations = validator.validate(requestCredentials);
 
         assertThat(violations).hasSize(1);
         assertThat(violations.iterator().next().getMessage()).isEqualTo("Username is too long");
@@ -53,9 +53,9 @@ public class PlayerDtoValidationTests {
 
     @Test
     void shouldReturnViolationWhenUsernameContainsNumbers() {
-        PlayerDto playerDto = new PlayerDto(generateStringWithLength(5) + 7, generateStringWithLength(5));
+        RequestCredentials requestCredentials = new RequestCredentials(generateStringWithLength(5) + 7, generateStringWithLength(5));
 
-        Set<ConstraintViolation<PlayerDto>> violations = validator.validate(playerDto);
+        Set<ConstraintViolation<RequestCredentials>> violations = validator.validate(requestCredentials);
 
         assertThat(violations).hasSize(1);
         assertThat(violations.iterator().next().getMessage()).isEqualTo("Username can contain only alphabet characters");
@@ -63,9 +63,9 @@ public class PlayerDtoValidationTests {
 
     @Test
     void shouldReturnViolationWhenPasswordIsTooShort() {
-        PlayerDto playerDto = new PlayerDto(generateStringWithLength(5), generateStringWithLength(2));
+        RequestCredentials requestCredentials = new RequestCredentials(generateStringWithLength(5), generateStringWithLength(2));
 
-        Set<ConstraintViolation<PlayerDto>> violations = validator.validate(playerDto);
+        Set<ConstraintViolation<RequestCredentials>> violations = validator.validate(requestCredentials);
 
         assertThat(violations).hasSize(1);
         assertThat(violations.iterator().next().getMessage()).isEqualTo("Password is too short");
@@ -73,9 +73,9 @@ public class PlayerDtoValidationTests {
 
     @Test
     void shouldReturnViolationWhenPasswordIsTooLong() {
-        PlayerDto playerDto = new PlayerDto(generateStringWithLength(5), generateStringWithLength(31));
+        RequestCredentials requestCredentials = new RequestCredentials(generateStringWithLength(5), generateStringWithLength(31));
 
-        Set<ConstraintViolation<PlayerDto>> violations = validator.validate(playerDto);
+        Set<ConstraintViolation<RequestCredentials>> violations = validator.validate(requestCredentials);
 
         assertThat(violations).hasSize(1);
         assertThat(violations.iterator().next().getMessage()).isEqualTo("Password is too long");

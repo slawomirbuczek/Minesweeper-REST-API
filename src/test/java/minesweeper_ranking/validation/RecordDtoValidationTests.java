@@ -1,6 +1,6 @@
 package minesweeper_ranking.validation;
 
-import minesweeper_ranking.models.RequestRecord;
+import minesweeper_ranking.models.request.RequestRecord;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +11,7 @@ import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class RankingDtoValidationTests {
+public class RecordDtoValidationTests {
 
     private static Validator validator;
 

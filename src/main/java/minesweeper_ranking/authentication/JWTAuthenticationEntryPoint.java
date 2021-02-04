@@ -1,6 +1,6 @@
 package minesweeper_ranking.authentication;
 
-import minesweeper_ranking.models.ResponseMessage;
+import minesweeper_ranking.models.response.ResponseMessage;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
