@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.Optional;
 
 @RestControllerAdvice
+@ResponseStatus(HttpStatus.BAD_REQUEST)
 public class GlobalExceptionHandler {
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(BindException.class)
     public ResponseMessage handleValidationExceptions(BindException ex) {
 
@@ -27,9 +27,13 @@ public class GlobalExceptionHandler {
         return new ResponseMessage(message.orElse("Validation Exception"));
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(UserAlreadyExistsException.class)
-    public ResponseMessage handleUserAlreadyExistsException(UserAlreadyExistsException ex) {
+    @ExceptionHandler(PlayerAlreadyExistsException.class)
+    public ResponseMessage handleUserAlreadyExistsException(PlayerAlreadyExistsException ex) {
+        return new ResponseMessage(ex.getMessage());
+    }
+
+    @ExceptionHandler(PlayerNotFoundException.class)
+    public ResponseMessage handlePlayerNotFoundException(PlayerNotFoundException ex) {
         return new ResponseMessage(ex.getMessage());
     }
 

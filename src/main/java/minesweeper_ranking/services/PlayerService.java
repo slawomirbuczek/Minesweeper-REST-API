@@ -1,9 +1,10 @@
 package minesweeper_ranking.services;
 
 import lombok.AllArgsConstructor;
+import minesweeper_ranking.exceptions.PlayerNotFoundException;
 import minesweeper_ranking.models.player.RequestCredentials;
 import minesweeper_ranking.models.player.Player;
-import minesweeper_ranking.exceptions.UserAlreadyExistsException;
+import minesweeper_ranking.exceptions.PlayerAlreadyExistsException;
 import minesweeper_ranking.models.ResponseMessage;
 import minesweeper_ranking.repositories.player.PlayerRepository;
 import org.modelmapper.ModelMapper;
@@ -21,7 +22,7 @@ public class PlayerService {
         String username = requestCredentials.getUsername();
 
         if (playerRepository.existsByUsername(username)) {
-            throw new UserAlreadyExistsException(username);
+            throw new PlayerAlreadyExistsException(username);
         }
 
         requestCredentials.setPassword(passwordEncoder.encode(requestCredentials.getPassword()));
@@ -33,7 +34,8 @@ public class PlayerService {
     }
 
     public Player getPlayer(String username) {
-        return playerRepository.findByUsername(username).orElse(null);
+        return playerRepository.findByUsername(username)
+                .orElseThrow(() -> new PlayerNotFoundException(username));
     }
 
 }

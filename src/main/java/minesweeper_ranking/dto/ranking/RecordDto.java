@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 
 @Getter
@@ -16,7 +16,7 @@ public class RecordDto {
 
     private String username;
 
-    private Date date;
+    private LocalDate date;
 
     private float time;
 

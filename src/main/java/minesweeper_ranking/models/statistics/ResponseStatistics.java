@@ -12,10 +12,10 @@ public class ResponseStatistics {
 
     private String username;
 
-    private StatisticsDto statisticsEasy;
+    private StatisticsDto easy;
 
-    private StatisticsDto statisticsMedium;
+    private StatisticsDto medium;
 
-    private StatisticsDto statisticsHard;
+    private StatisticsDto hard;
 
 }

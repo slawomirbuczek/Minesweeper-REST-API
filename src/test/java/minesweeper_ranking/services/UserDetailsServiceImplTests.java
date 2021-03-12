@@ -12,7 +12,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.Optional;
-import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -41,7 +40,7 @@ class UserDetailsServiceImplTests {
 
     @Test
     void shouldReturnUserDetailsWhenUserFound() {
-        Player player = new Player(UUID.randomUUID(), "Anon", "password");
+        Player player = new Player("Anon", "password");
 
         given(playerRepository.findByUsername(any(String.class))).willReturn(Optional.of(player));
 

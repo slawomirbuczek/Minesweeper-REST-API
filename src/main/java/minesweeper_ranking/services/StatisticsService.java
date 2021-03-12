@@ -26,13 +26,13 @@ public class StatisticsService {
         statistics.setUsername(username);
 
         Statistics easyStats = getStatistics(username, Level.EASY);
-        statistics.setStatisticsEasy(mapToStatisticsDto(easyStats));
+        statistics.setEasy(mapToStatisticsDto(easyStats));
 
         Statistics mediumStats = getStatistics(username, Level.MEDIUM);
-        statistics.setStatisticsMedium(mapToStatisticsDto(mediumStats));
+        statistics.setMedium(mapToStatisticsDto(mediumStats));
 
         Statistics hardStats = getStatistics(username, Level.HARD);
-        statistics.setStatisticsHard(mapToStatisticsDto(hardStats));
+        statistics.setHard(mapToStatisticsDto(hardStats));
 
         return statistics;
     }
