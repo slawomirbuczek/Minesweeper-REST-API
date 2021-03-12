@@ -5,9 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import javax.validation.constraints.Positive;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -15,10 +15,10 @@ import java.util.Date;
 @AllArgsConstructor
 public class RequestRecord {
 
-    @Min(0)
+    @Positive
     private float time;
 
     @NotNull
-    private Date date;
+    private LocalDate date;
 
 }

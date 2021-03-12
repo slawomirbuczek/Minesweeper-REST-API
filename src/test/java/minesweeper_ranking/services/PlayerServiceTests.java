@@ -17,7 +17,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-class RegistrationServiceTests {
+class PlayerServiceTests {
 
     @Mock
     private PlayerRepository playerRepository;
@@ -26,7 +26,7 @@ class RegistrationServiceTests {
     private PasswordEncoder passwordEncoder;
 
     @InjectMocks
-    private RegistrationService registrationService;
+    private PlayerService playerService;
 
     @Test
     void shouldReturnMessageWhenUserCreated() {
@@ -34,7 +34,7 @@ class RegistrationServiceTests {
 
         RequestCredentials requestCredentials = new RequestCredentials("Anon", "password");
 
-        ResponseMessage message = registrationService.addPlayer(requestCredentials);
+        ResponseMessage message = playerService.addPlayer(requestCredentials);
 
         assertThat(message.getMessage()).isEqualTo("Registered successfully");
     }
@@ -45,7 +45,7 @@ class RegistrationServiceTests {
 
         RequestCredentials requestCredentials = new RequestCredentials("Anon", "password");
 
-        assertThatThrownBy(() -> registrationService.addPlayer(requestCredentials))
+        assertThatThrownBy(() -> playerService.addPlayer(requestCredentials))
                 .isInstanceOf(UserAlreadyExistsException.class)
                 .hasMessage("Player with username " + requestCredentials.getUsername() + " already exists");
     }

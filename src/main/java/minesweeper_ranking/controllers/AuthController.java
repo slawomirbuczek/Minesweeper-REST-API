@@ -4,7 +4,7 @@ package minesweeper_ranking.controllers;
 import lombok.AllArgsConstructor;
 import minesweeper_ranking.models.request.RequestCredentials;
 import minesweeper_ranking.models.response.ResponseMessage;
-import minesweeper_ranking.services.RegistrationService;
+import minesweeper_ranking.services.PlayerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +17,7 @@ import javax.validation.Valid;
 @AllArgsConstructor
 public class AuthController {
 
-    private final RegistrationService registrationService;
+    private final PlayerService playerService;
 
     @PostMapping("/api/login")
     public void login(@RequestBody RequestCredentials loginRequestCredentials) {
@@ -26,6 +26,6 @@ public class AuthController {
 
     @PostMapping("/api/register")
     public ResponseEntity<ResponseMessage> register(@Valid @RequestBody RequestCredentials player) {
-        return ResponseEntity.ok(registrationService.addPlayer(player));
+        return ResponseEntity.ok(playerService.addPlayer(player));
     }
 }

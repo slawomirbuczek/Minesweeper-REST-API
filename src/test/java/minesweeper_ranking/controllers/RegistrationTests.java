@@ -3,7 +3,7 @@ package minesweeper_ranking.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import minesweeper_ranking.models.request.RequestCredentials;
 import minesweeper_ranking.models.response.ResponseMessage;
-import minesweeper_ranking.services.RegistrationService;
+import minesweeper_ranking.services.PlayerService;
 import minesweeper_ranking.authentication.UserDetailsServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class RegistrationTests {
 
     @MockBean
-    private RegistrationService registrationService;
+    private PlayerService playerService;
 
     @Autowired
     private MockMvc mvc;
@@ -36,7 +36,7 @@ public class RegistrationTests {
     void shouldRegisterNewPlayerWhenCredentialsAreCorrect() throws Exception {
         ResponseMessage response = new ResponseMessage("Registered successfully");
 
-        given(registrationService.addPlayer(any(RequestCredentials.class))).willReturn(response);
+        given(playerService.addPlayer(any(RequestCredentials.class))).willReturn(response);
 
         RequestCredentials requestCredentials = new RequestCredentials("Anon", "password");
 

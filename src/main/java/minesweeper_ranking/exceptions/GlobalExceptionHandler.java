@@ -20,7 +20,7 @@ public class GlobalExceptionHandler {
 
         List<String> errorMessages = new ArrayList<>();
 
-        ex.getBindingResult().getAllErrors().forEach((error) -> errorMessages.add(error.getDefaultMessage()));
+        ex.getBindingResult().getAllErrors().forEach(error -> errorMessages.add(error.getDefaultMessage()));
 
         Optional<String> message =  errorMessages.stream().reduce((s, s2) -> s + "\n" + s2);
 

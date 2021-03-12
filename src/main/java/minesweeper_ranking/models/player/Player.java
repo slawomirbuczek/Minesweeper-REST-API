@@ -1,18 +1,19 @@
 package minesweeper_ranking.models.player;
 
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.UUID;
 
 
 @NoArgsConstructor
@@ -24,9 +25,6 @@ import java.util.UUID;
 public class Player implements UserDetails {
 
     @Id
-    @GeneratedValue
-    private UUID id;
-
     private String username;
 
     private String password;

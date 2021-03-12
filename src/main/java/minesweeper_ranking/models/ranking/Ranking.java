@@ -1,22 +1,34 @@
 package minesweeper_ranking.models.ranking;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import minesweeper_ranking.enums.Level;
 import minesweeper_ranking.models.player.Player;
 
-import java.util.Date;
-import java.util.UUID;
+import javax.persistence.*;
+import java.time.LocalDate;
 
 @Getter
 @Setter
-public abstract class Ranking {
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "Ranking")
+public class Ranking {
 
-    private UUID id;
+    @Id
+    @GeneratedValue
+    private Long id;
 
+    private LocalDate date;
+
+    private Float time;
+
+    private Level level;
+
+    @ManyToOne
     private Player player;
-
-    private Date date;
-
-    private float time;
-
 
 }

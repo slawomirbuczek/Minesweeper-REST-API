@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 @AllArgsConstructor
 @Service
-public class RegistrationService {
+public class PlayerService {
 
     private final PlayerRepository playerRepository;
     private final PasswordEncoder passwordEncoder;
@@ -30,6 +30,10 @@ public class RegistrationService {
         playerRepository.save(player);
 
         return new ResponseMessage("Registered successfully");
+    }
+
+    public Player getPlayer(String username) {
+        return playerRepository.findByUsername(username).orElse(null);
     }
 
 }
