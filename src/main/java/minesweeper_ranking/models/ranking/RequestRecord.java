@@ -16,7 +16,7 @@ import java.time.LocalDate;
 public class RequestRecord {
 
     @Positive
-    private float time;
+    private Float time;
 
     @NotNull
     private LocalDate date;

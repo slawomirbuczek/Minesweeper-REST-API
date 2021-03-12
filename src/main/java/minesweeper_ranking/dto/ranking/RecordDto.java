@@ -18,6 +18,6 @@ public class RecordDto {
 
     private LocalDate date;
 
-    private float time;
+    private Float time;
 
 }

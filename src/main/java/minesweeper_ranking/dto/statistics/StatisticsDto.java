@@ -9,14 +9,14 @@ import lombok.Setter;
 @NoArgsConstructor
 public class StatisticsDto {
 
-    private int totalGamesPlayed;
+    private Integer totalGamesPlayed;
 
-    private int gamesWon;
+    private Integer gamesWon;
 
-    private float totalTime;
+    private Float totalTime;
 
-    private float averageTime;
+    private Float averageTime;
 
-    private float bestTime;
+    private Float bestTime;
 
 }
