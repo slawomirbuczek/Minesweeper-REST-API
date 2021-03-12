@@ -2,8 +2,8 @@ package minesweeper_ranking.controllers;
 
 
 import lombok.AllArgsConstructor;
-import minesweeper_ranking.models.request.RequestCredentials;
-import minesweeper_ranking.models.response.ResponseMessage;
+import minesweeper_ranking.models.player.RequestCredentials;
+import minesweeper_ranking.models.ResponseMessage;
 import minesweeper_ranking.services.PlayerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

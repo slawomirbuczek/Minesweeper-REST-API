@@ -2,8 +2,8 @@ package minesweeper_ranking.controllers;
 
 import lombok.AllArgsConstructor;
 import minesweeper_ranking.enums.Level;
-import minesweeper_ranking.models.request.RequestRecord;
-import minesweeper_ranking.models.response.ResponseStatistics;
+import minesweeper_ranking.models.ranking.RequestRecord;
+import minesweeper_ranking.models.statistics.ResponseStatistics;
 import minesweeper_ranking.services.StatisticsService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ public class StatisticsController {
 
     @GetMapping
     public ResponseEntity<ResponseStatistics> getResponseStatistics(Principal principal) {
-        return ResponseEntity.ok(statisticsService.getResponseStatistics(principal.getName()));
+        return ResponseEntity.ok(statisticsService.getStatistics(principal.getName()));
     }
 
     @PostMapping("/{level}")

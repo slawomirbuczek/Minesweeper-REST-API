@@ -1,13 +1,13 @@
 package minesweeper_ranking.validation;
 
-import minesweeper_ranking.models.request.RequestRecord;
+import minesweeper_ranking.models.ranking.RequestRecord;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-import java.util.Date;
+import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -23,7 +23,7 @@ public class RecordDtoValidationTests {
 
     @Test
     void shouldPassWhenDataIsCorrect() {
-        RequestRecord record = new RequestRecord(12, new Date());
+        RequestRecord record = new RequestRecord(12, LocalDate.now());
 
         assertThat(validator.validate(record)).isEmpty();
     }
@@ -37,7 +37,7 @@ public class RecordDtoValidationTests {
 
     @Test
     void shouldNotPassWhenTimeIsLessThanZero() {
-        RequestRecord record = new RequestRecord(-1, new Date());
+        RequestRecord record = new RequestRecord(-1, LocalDate.now());
 
         assertThat(validator.validate(record)).hasSize(1);
     }

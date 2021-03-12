@@ -1,10 +1,10 @@
 package minesweeper_ranking.services;
 
 import lombok.AllArgsConstructor;
-import minesweeper_ranking.models.request.RequestCredentials;
+import minesweeper_ranking.models.player.RequestCredentials;
 import minesweeper_ranking.models.player.Player;
 import minesweeper_ranking.exceptions.UserAlreadyExistsException;
-import minesweeper_ranking.models.response.ResponseMessage;
+import minesweeper_ranking.models.ResponseMessage;
 import minesweeper_ranking.repositories.player.PlayerRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;

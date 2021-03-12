@@ -5,8 +5,7 @@ import minesweeper_ranking.dto.ranking.RecordDto;
 import minesweeper_ranking.enums.Level;
 import minesweeper_ranking.models.player.Player;
 import minesweeper_ranking.models.ranking.Ranking;
-import minesweeper_ranking.models.request.RequestRecord;
-import minesweeper_ranking.repositories.player.PlayerRepository;
+import minesweeper_ranking.models.ranking.RequestRecord;
 import minesweeper_ranking.repositories.ranking.RankingRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.PageRequest;
@@ -43,7 +42,7 @@ public class RankingService {
         ranking.setLevel(level);
         ranking = rankingRepository.save(ranking);
 
-        statisticsService.updateStatisticsWhenGameWon(level, player, record);
+        statisticsService.updateStatisticsWhenGameWon(level, username, record);
         return mapToRankingDto(ranking);
     }
 

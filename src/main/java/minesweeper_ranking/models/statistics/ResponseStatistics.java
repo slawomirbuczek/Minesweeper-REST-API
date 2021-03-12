@@ -1,4 +1,4 @@
-package minesweeper_ranking.models.response;
+package minesweeper_ranking.models.statistics;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

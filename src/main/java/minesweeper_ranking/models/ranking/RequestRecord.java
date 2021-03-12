@@ -1,4 +1,4 @@
-package minesweeper_ranking.models.request;
+package minesweeper_ranking.models.ranking;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

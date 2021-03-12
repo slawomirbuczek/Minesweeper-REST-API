@@ -3,7 +3,7 @@ package minesweeper_ranking.controllers;
 import lombok.AllArgsConstructor;
 import minesweeper_ranking.dto.ranking.RecordDto;
 import minesweeper_ranking.enums.Level;
-import minesweeper_ranking.models.request.RequestRecord;
+import minesweeper_ranking.models.ranking.RequestRecord;
 import minesweeper_ranking.services.RankingService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

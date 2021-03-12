@@ -1,7 +1,7 @@
 package minesweeper_ranking.validation;
 
 
-import minesweeper_ranking.models.request.RequestCredentials;
+import minesweeper_ranking.models.player.RequestCredentials;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

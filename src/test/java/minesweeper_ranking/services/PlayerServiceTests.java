@@ -1,8 +1,8 @@
 package minesweeper_ranking.services;
 
-import minesweeper_ranking.models.request.RequestCredentials;
+import minesweeper_ranking.models.player.RequestCredentials;
 import minesweeper_ranking.exceptions.UserAlreadyExistsException;
-import minesweeper_ranking.models.response.ResponseMessage;
+import minesweeper_ranking.models.ResponseMessage;
 import minesweeper_ranking.repositories.player.PlayerRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

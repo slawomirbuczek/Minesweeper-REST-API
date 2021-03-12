@@ -1,8 +1,8 @@
 package minesweeper_ranking.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import minesweeper_ranking.models.request.RequestCredentials;
-import minesweeper_ranking.models.response.ResponseMessage;
+import minesweeper_ranking.models.player.RequestCredentials;
+import minesweeper_ranking.models.ResponseMessage;
 import minesweeper_ranking.services.PlayerService;
 import minesweeper_ranking.authentication.UserDetailsServiceImpl;
 import org.junit.jupiter.api.Test;
