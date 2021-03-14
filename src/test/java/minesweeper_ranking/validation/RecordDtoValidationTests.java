@@ -23,21 +23,21 @@ public class RecordDtoValidationTests {
 
     @Test
     void shouldPassWhenDataIsCorrect() {
-        RequestRecord record = new RequestRecord(12, LocalDate.now());
+        RequestRecord record = new RequestRecord(12f, LocalDate.now());
 
         assertThat(validator.validate(record)).isEmpty();
     }
 
     @Test
     void shouldNotPassWhenDateIsNull() {
-        RequestRecord record = new RequestRecord(12, null);
+        RequestRecord record = new RequestRecord(12f, null);
 
         assertThat(validator.validate(record)).hasSize(1);
     }
 
     @Test
     void shouldNotPassWhenTimeIsLessThanZero() {
-        RequestRecord record = new RequestRecord(-1, LocalDate.now());
+        RequestRecord record = new RequestRecord(-1f, LocalDate.now());
 
         assertThat(validator.validate(record)).hasSize(1);
     }
