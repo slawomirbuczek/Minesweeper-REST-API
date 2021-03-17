@@ -1,29 +1,31 @@
 # Minesweeper-backend
-Global ranking and statistics for my [Minesweeper](https://github.com/slawomirbuczek/Minesweeper) android app. Deployed on Heroku.  
-Ranking contains records of each game won during playing on the android app.  
-Players requestCredentials and records are stored in Heroku Postgres.
+REST API for my [Minesweeper](https://github.com/slawomirbuczek/Minesweeper) android app. Deployed on Heroku.  
 
 ## Current functionalities:  
-* registration & login;
-* JWT authentication;
-* getting top 50 records from ranking for a given level;
-* adding records to ranking;
+* login and registration
+* global ranking - top 50 records for each level
+* player statistics for each level:
+  * total games played
+  * games won
+  * total playing time
+  * average time of game won
+  * best time of game won
 
 ## Technology stack and its application in the project:
 * Spring Boot:
-  * app starter, auto configuration, spring boot magic;
+  * app starter, auto configuration, spring boot magic
 * Spring Security:
-  * authentication with JWT;
-  * getting ranking and adding new records are available only to authenticated users;
+  * authentication with JWT
+  * global ranking and player statistics are available only to authenticated users
 * Spring JPA:
-  * db contains four entities, one for user and three for each game level;
+  * hibernate
 * Spring Validation:
-  * validating requestCredentials during registration;
+  * requests validation
 * H2:
-  * used locally for developing and testing;
+  * used locally for developing and testing
 * PostgreSQL:
-  * Heroku Postgres, used in production;
+  * Heroku Postgres, used in production
 * Swagger:
-  * testing endpoints;
+  * testing endpoints
 * Lombok:
-  * remove  boilerplate code;
+  * remove boiler plate code
