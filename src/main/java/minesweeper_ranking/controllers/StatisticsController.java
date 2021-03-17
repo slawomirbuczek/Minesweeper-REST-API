@@ -26,7 +26,7 @@ public class StatisticsController {
 
     @PostMapping("/{level}")
     @ResponseStatus(HttpStatus.OK)
-    public void updateStatisticsWhenGameLost(
+    public void addGameLost(
             @Valid @RequestBody RequestRecord record,
             @PathVariable(name = "level") Level level,
             Principal principal) {

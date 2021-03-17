@@ -16,7 +16,6 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -66,7 +65,7 @@ public class RankingServiceTests {
 
     @Test
     void shouldReturnRanking() {
-        given(rankingRepository.findAll(any(Pageable.class))).willReturn(new PageImpl<>(getListOfRanking()));
+        given(rankingRepository.findAllByLevel(any(), any())).willReturn(new PageImpl<>(getListOfRanking()));
 
         List<RecordDto> ranking = rankingService.getRanking(Level.EASY);
 

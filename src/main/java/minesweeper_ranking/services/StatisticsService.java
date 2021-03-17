@@ -3,7 +3,6 @@ package minesweeper_ranking.services;
 import lombok.AllArgsConstructor;
 import minesweeper_ranking.dto.statistics.StatisticsDto;
 import minesweeper_ranking.enums.Level;
-import minesweeper_ranking.models.player.Player;
 import minesweeper_ranking.models.ranking.RequestRecord;
 import minesweeper_ranking.models.statistics.ResponseStatistics;
 import minesweeper_ranking.models.statistics.Statistics;
@@ -56,12 +55,9 @@ public class StatisticsService {
     }
 
     public void updateStatisticsWhenGameLost(Level level, String username, RequestRecord record) {
-        Player player = playerService.getPlayer(username);
         Statistics statistics = getStatistics(username, level);
-
         statistics.setTotalGamesPlayed(statistics.getTotalGamesPlayed() + 1);
         statistics.setTotalTime(statistics.getTotalTime() + record.getTime());
-
         statisticsRepository.save(statistics);
     }
 

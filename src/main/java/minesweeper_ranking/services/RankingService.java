@@ -29,7 +29,7 @@ public class RankingService {
         Sort sort = Sort.by(Sort.Direction.ASC, "time");
         Pageable pageable = PageRequest.of(0, 50, sort);
 
-        List<Ranking> ranking = rankingRepository.findAll(pageable).getContent();
+        List<Ranking> ranking = rankingRepository.findAllByLevel(level, pageable).getContent();
 
         return ranking.stream().map(this::mapToRankingDto).collect(Collectors.toList());
     }
